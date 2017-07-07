@@ -1,0 +1,15 @@
+<tr *ngFor="let rowData of data;let rowIndex = index">
+
+  <td *ngFor="let column of columns;let colIndex=index"
+      [ngClass]="{'row-selector':(column.bodyTemplate ? 1 : (column.rowSelector ? 2 : 0))==2}">
+
+    <ng-container [ngSwitch]="column.bodyTemplate ? 1 : (column.rowSelector ? 2 : 0)">
+          <span *ngSwitchCase="1" id="_1_{{colIndex}}_{{rowIndex}}">
+              <ng-container [ngTemplateOutlet]="column.bodyTemplate?.templateRef"
+                            [ngTemplateOutletContext]="{$implicit:{column:column,rowData:rowData,rowIndex:rowIndex,colIndex:colIndex}}"
+                            #bodyTemplate></ng-container>
+          </span>
+
+    </ng-container>
+  </td>
+</tr>
