@@ -21,6 +21,26 @@
 
 
 <ngx-datatables-portlet caption="Users">
+  <ng-template ngxDatatablesTemplate="filters">
+    <div class="row">
+      <div class="col-md-4 form-group">
+        <label for="countryFilter">Country</label>
+        <input id="countryFilter" name="country.countryName"
+               class="form-control"
+               type="text" placeholder="Country"/>
+      </div>
+      <div class="col-md-4 form-group">
+        <label for="bankCodeFilter">Bank Code</label>
+        <input id="bankCodeFilter" name="bankCode" class="form-control"
+               type="text" placeholder="Bank Code"/>
+      </div>
+      <div class="col-md-4 form-group">
+        <label for="bankNameFilter">Bank Name</label>
+        <input id="bankNameFilter" name="bankName" class="form-control"
+               type="text" placeholder="Bank Name"/>
+      </div>
+    </div>
+  </ng-template>
   <ng-template ngxDatatablesTemplate="actions">
     <div class="row">
       <div class="col-md-6">

@@ -38,6 +38,8 @@ export class DatatablesPortletComponent implements OnInit, AfterViewInit, AfterC
 
   public actionsTemplate: DatatablesTemplateDirective;
 
+  public filtersTemplate: DatatablesTemplateDirective;
+
   @Input()
   caption ?: string;
 
@@ -85,6 +87,7 @@ export class DatatablesPortletComponent implements OnInit, AfterViewInit, AfterC
     console.log(this.templates);
     if (this.templates) {
       this.actionsTemplate = this.findTemplateFor('actions');
+      this.filtersTemplate = this.findTemplateFor('filters');
       if (this.actionsTemplate)
         this.initActions();
     }
