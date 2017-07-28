@@ -75,9 +75,7 @@ export class DatatablesComponent implements OnInit, OnDestroy, AfterViewInit, Af
       this.dirtyData = true;
       if (data && data.length) {
         this.data = data;
-        setTimeout(() => {
-          this.buildTemplateComponent();
-        }, 10);
+        this.buildTemplateComponent();
       }
     });
     if ($.fn['dataTable'] && $.fn['dataTable'].ext) {
