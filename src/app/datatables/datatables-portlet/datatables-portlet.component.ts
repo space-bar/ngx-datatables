@@ -84,13 +84,22 @@ export class DatatablesPortletComponent implements OnInit, AfterViewInit, AfterC
   }
 
   ngAfterContentInit(): void {
-    console.log(this.templates);
     if (this.templates) {
       this.actionsTemplate = this.findTemplateFor('actions');
       this.filtersTemplate = this.findTemplateFor('filters');
       if (this.actionsTemplate)
         this.initActions();
     }
+  }
+
+  /*public helper functions*/
+  get filtersData(): Object {
+    if (this.filtersTemplate) {
+      let element = this.filtersTemplate.templateRef.elementRef.nativeElement;
+      let forms = element.getElementsByTagName("form");
+      return forms && forms.length ? this.serializeToJSON(forms[0]) : {};
+    }
+    return {};
   }
 
   /*init of view panels*/
@@ -223,5 +232,44 @@ export class DatatablesPortletComponent implements OnInit, AfterViewInit, AfterC
       console.warn(`Multiple '${templateName}' Column template detected [ignored]`);
     }
     return templates == null || templates.length === 0 ? null : templates[0];
+  }
+
+
+  private serializeToJSON(form): {} {
+    var json = {};
+    $.each($(form).serializeArray(), function (i, n) {
+      var _name = undefined;
+      var _ = n.name.indexOf('[');
+      if (_ > -1) {
+        _name = n.name.replace(/\]/gi, '').split('[');
+      } else if ((_ = n.name.indexOf('.')) > -1) {
+        _name = n.name.split('.');
+      }
+      if (_ > -1 && _name) {
+        var o = json;
+        for (var i = 0, len = _name.length; i < len; i++) {
+          if (i == len - 1) {
+            if (o[_name[i]]) {
+              if (typeof o[_name[i]] == 'string' || !o[_name[i]].push) {
+                o[_name[i]] = [o[_name[i]]];
+              }
+              o[_name[i]].push(n.value);
+            }
+            else o[_name[i]] = n.value || '';
+          }
+          else o = o[_name[i]] = o[_name[i]] || {};
+        }
+      }
+      else {
+        if (json[n.name] !== undefined) {
+          if (!json[n.name].push) {
+            json[n.name] = [json[n.name]];
+          }
+          json[n.name].push(n.value || '');
+        }
+        else json[n.name] = n.value || '';
+      }
+    });
+    return json;
   }
 }

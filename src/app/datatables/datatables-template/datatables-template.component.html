@@ -6,7 +6,7 @@
     <ng-container [ngSwitch]="column.bodyTemplate ? 1 : (column.rowSelector ? 2 : 0)">
           <span *ngSwitchCase="1" id="_1_{{colIndex}}_{{rowIndex}}">
               <ng-container [ngTemplateOutlet]="column.bodyTemplate?.templateRef"
-                            [ngTemplateOutletContext]="{$implicit:{column:column,rowData:rowData,rowIndex:rowIndex,colIndex:colIndex}}"
+                            [ngTemplateOutletContext]="{$implicit:{rowData:rowData,data:rowData,rowIndex:rowIndex,columnIndex:colIndex}}"
                             #bodyTemplate></ng-container>
           </span>
 
