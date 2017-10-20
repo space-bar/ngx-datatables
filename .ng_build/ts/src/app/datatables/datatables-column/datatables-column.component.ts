@@ -4,8 +4,12 @@ import {DatatablesTemplateDirective} from "../datatables-template/datatables-tem
 
 @Component({
   selector: 'ngx-datatables-column',
-  templateUrl: './datatables-column.component.html',
-  styleUrls: ['./datatables-column.component.css']
+  template: `
+
+  `,
+  styles: [`
+
+  `]
 })
 export class DatatablesColumnComponent implements OnInit {
   @ContentChildren(DatatablesTemplateDirective)

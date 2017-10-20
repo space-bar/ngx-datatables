@@ -25,8 +25,54 @@ import {DatatablesTemplateComponent} from "../datatables-template/datatables-tem
 
 @Component({
   selector: 'ngx-datatables',
-  templateUrl: './datatables.component.html',
-  styleUrls: ['./datatables.component.css']
+  template: `
+    <div class="table-container datatable-container {{containerClass}}">
+
+      <table class="table table-striped table-bordered table-hover table-checkable {{tableClass}}" #tableElement>
+        <thead>
+        <tr role="row" class="heading">
+          <th *ngFor="let column of columns;let colIndex = index"
+              [ngClass]="{'row-selector selector':(column.bodyTemplate ? 1 : (column.rowSelector ? 2 : 0))==2}">
+
+            <ng-container [ngSwitch]="column.headerTemplate ? 1 : (column.rowSelector ? 2 : 0)">
+              <ng-container *ngSwitchCase="1"
+                            [ngTemplateOutlet]="column.headerTemplate?.templateRef"
+                            [ngTemplateOutletContext]="{$implicit:{column:column}}"
+                            #headerTemplate></ng-container>
+
+              <span *ngSwitchCase="2">
+                <span class="md-checkbox">
+                  <input type="checkbox" id="rowselector_{{colIndex}}" class="md-check">
+                  <label for="rowselector_{{colIndex}}">
+                    <span></span>
+                    <span class="check"></span>
+                    <span class="box"></span>
+                  </label>
+                </span>
+              </span>
+
+              <span *ngSwitchDefault>{{column.header}}</span>
+            </ng-container>
+
+          </th>
+        </tr>
+
+        </thead>
+        <tbody>
+
+        </tbody>
+
+      </table>
+
+      <ng-container #templateContainer>
+
+      </ng-container>
+
+    </div>
+  `,
+  styles: [`
+
+  `]
 })
 export class DatatablesComponent implements OnInit, OnDestroy, AfterViewInit, AfterContentInit, AfterViewChecked, OnChanges {
   private readonly ROW_SELECTOR_CLASS = "row-selector";
@@ -132,7 +178,7 @@ export class DatatablesComponent implements OnInit, OnDestroy, AfterViewInit, Af
   private init() {
     let defaultSettings = Object.assign({}, this.DEFAULT_SETTINGS);
     if (this.hideSearchInput) {
-     // defaultSettings.dom = this.NO_SEARCH_INPUT_DOM;
+      defaultSettings.dom = this.NO_SEARCH_INPUT_DOM;
     }
     this.options$ = $.extend(true, defaultSettings,
       {ajax: typeof this.ajaxOptions == 'string' ? {url: this.ajaxOptions} : this.ajaxOptions});
@@ -298,7 +344,9 @@ export class DatatablesComponent implements OnInit, OnDestroy, AfterViewInit, Af
     "<'row'<'col-sm-12'tr>>" +
     "<'row'<'col-sm-5'i><'col-sm-7 text-right'lp>>";
   private DEFAULT_SETTINGS = {
-
+    dom: "<'row'<'col-sm-6'f><'col-sm-6'<'dataTables_toolbar'>>>" +
+    "<'row'<'col-sm-12'tr>>" +
+    "<'row'<'col-sm-5'i><'col-sm-7 text-right'lp>>",
     //serverSide: true,
     responsive: true,
     searching: false,

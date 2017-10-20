@@ -1,0 +1,32 @@
+import { OnInit, SimpleChanges } from "@angular/core";
+import { DatatablesTemplateDirective } from "../datatables-template/datatables-template.directive";
+export declare class DatatablesColumnComponent implements OnInit {
+    private templates;
+    private _headerTemplate;
+    private _footerTemplate;
+    private _bodyTemplate;
+    title?: string;
+    field?: string;
+    sortField?: string;
+    header?: string;
+    footer?: string;
+    sortable?: string;
+    sortFunction?: string;
+    editable?: string;
+    filter?: string;
+    rowSelector?: boolean;
+    orderable?: boolean;
+    searchable?: boolean;
+    visible?: boolean;
+    width?: string;
+    constructor();
+    ngOnInit(): void;
+    ngAfterContentInit(): void;
+    ngOnChanges(changes: SimpleChanges): void;
+    readonly headerTemplate: DatatablesTemplateDirective;
+    readonly footerTemplate: DatatablesTemplateDirective;
+    readonly bodyTemplate: DatatablesTemplateDirective;
+    private singularTemplate(templates);
+    private findTemplateFor(templateName);
+    buildColumnDefs(): DataTables.ColumnDefsSettings;
+}

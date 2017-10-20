@@ -8,6 +8,7 @@ import {Component, OnInit} from "@angular/core";
 export class AppComponent implements OnInit {
   data: Object[];
   ajax: DataTables.FunctionAjax;
+  title:string="";
 
   constructor() {
   }
