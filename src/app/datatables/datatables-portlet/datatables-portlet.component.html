@@ -1,29 +1,22 @@
 <div class="portlet portlet-datatable">
   <div class="portlet-title">
-    <div class="row">
-      <div class="caption col-md-6">
-        <ng-container [ngTemplateOutlet]="captionTemplate?.templateRef"></ng-container>
-        <ng-container *ngIf="!captionTemplate?.templateRef" #defaultCaptionTemplate>
-          <i [ngClass]="iconClass ? iconClass :'glyphicon glyphicon-th-list'"></i>
-          <span class="caption-subject">{{caption}}</span>
-          <span class="caption-helper">{{description}}</span>
-        </ng-container>
-      </div>
+    <div class="caption">
+      <i [ngClass]="iconClass ? iconClass :'glyphicon glyphicon-th-list'"></i>
+      <span class="caption-subject">{{caption}}</span>
+      <span class="caption-helper">{{description}}</span>
+    </div>
 
-      <div class="actions col-md-6" #toolsPanel>
-        <ng-container [ngTemplateOutlet]="toolsTemplate?.templateRef"></ng-container>
-        <ng-container *ngIf="!toolsTemplate?.templateRef" #defaultToolsTemplate>
-          <a class="btn filter {{filterClass}}" [attr.title]="filterTitle?filterTitle:'Toggle Filters'"
-             href="javascript:">
-            <i [ngClass]="filterIconClass ? filterIconClass :'glyphicon glyphicon-filter'"></i>
-          </a>
-          <a class="btn fullscreen {{fullscreenClass}}"
-             [attr.title]="fullscreenTitle?fullscreenTitle:'Toggle fullscreen'"
-             href="javascript:">
-            <i [ngClass]="fullscreenIconClass ? fullscreenIconClass :'glyphicon glyphicon-resize-full'"></i>
-          </a>
-        </ng-container>
-      </div>
+    <div class="tools">
+    </div>
+    <div class="actions" #toolsPanel>
+      <a class="btn filter {{filterClass}}" [attr.title]="filterTitle?filterTitle:'Toggle Filters'"
+         href="javascript:">
+        <i [ngClass]="filterIconClass ? filterIconClass :'glyphicon glyphicon-filter'"></i>
+      </a>
+      <a class="btn fullscreen {{fullscreenClass}}" [attr.title]="fullscreenTitle?fullscreenTitle:'Toggle fullscreen'"
+         href="javascript:">
+        <i [ngClass]="fullscreenIconClass ? fullscreenIconClass :'glyphicon glyphicon-resize-full'"></i>
+      </a>
     </div>
   </div>
   <div class="portlet-title datatable-filter" style="display:none" #filterPanel>
@@ -37,4 +30,3 @@
     <ng-content></ng-content>
   </div>
 </div>
-

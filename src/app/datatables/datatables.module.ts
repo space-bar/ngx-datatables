@@ -17,4 +17,3 @@ import {DatatablesComponent} from "./datatables/datatables.component";
 })
 export class DatatablesModule {
 }
-

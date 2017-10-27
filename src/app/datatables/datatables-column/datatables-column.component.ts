@@ -1,4 +1,5 @@
 import {Component, ContentChildren, Input, OnInit, QueryList, SimpleChanges} from "@angular/core";
+import {isUndefined} from "util";
 import {DatatablesTemplateDirective} from "../datatables-template/datatables-template.directive";
 
 
@@ -121,7 +122,7 @@ export class DatatablesColumnComponent implements OnInit {
     columnDefs.title = this.title;
     columnDefs.visible = this.visible;
     columnDefs.width = this.width;
-    columnDefs.orderable = (typeof this.orderable==='undefined' && this.rowSelector) ? false : this.orderable;
+    columnDefs.orderable = (isUndefined(this.orderable) && this.rowSelector) ? false : this.orderable;
     columnDefs.data = this.field;
     return columnDefs;
   }

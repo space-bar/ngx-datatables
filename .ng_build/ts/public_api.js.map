@@ -1,1 +1,0 @@
-{"version":3,"sources":["src/public_api.ts"],"names":[],"mappings":"AACA,OAAO,EAAC,gBAAgB,EAAC,MAAM,oCAAoC,CAAC","file":"public_api.js","sourceRoot":"","sourcesContent":["import {DataTables} from 'datatables.net/index';\nexport {DatatablesModule} from './app/datatables/datatables.module';\n"]}

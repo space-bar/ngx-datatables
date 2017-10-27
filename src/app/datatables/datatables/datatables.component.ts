@@ -31,32 +31,17 @@ import {DatatablesTemplateComponent} from "../datatables-template/datatables-tem
 export class DatatablesComponent implements OnInit, OnDestroy, AfterViewInit, AfterContentInit, AfterViewChecked, OnChanges {
   private readonly ROW_SELECTOR_CLASS = "row-selector";
 
-
   @ContentChildren(DatatablesColumnComponent)
   columns: QueryList<DatatablesColumnComponent>;
 
   @Input()
   selectionMode: string = "multiple";
 
-  @Input()
-  tableClass: string;
-
-  @Input()
-  containerClass: string;
-
   @Input("data")
   data: Object[];
 
   @Input("ajax")
   ajaxOptions: string | DataTables.AjaxSettings | DataTables.FunctionAjax;
-
-  @Input("options")
-  options: DataTables.Settings;
-
-  @Input("hideSearchInput")
-  hideSearchInput: boolean;
-
-  private options$: DataTables.Settings;
 
   private dataListener: Subject<Object[]> = new Subject();
 
@@ -65,6 +50,7 @@ export class DatatablesComponent implements OnInit, OnDestroy, AfterViewInit, Af
   @ViewChild("tableElement")
   private tableElementRef: ElementRef;
 
+  private options: DataTables.Settings;
 
   private _dataTableApi: DataTables.Api;
 
@@ -76,6 +62,8 @@ export class DatatablesComponent implements OnInit, OnDestroy, AfterViewInit, Af
   @ViewChild("templateContainer", {read: ViewContainerRef})
   private templateViewContainerRef: ViewContainerRef;
 
+  /*private _changeDetectionRef: ChangeDetectorRef, private applicationRef: ApplicationRef
+   , private viewContainer: ViewContainerRef,*/
   constructor(private elementRef: ElementRef, private zone: NgZone, private componentFactoryResolver: ComponentFactoryResolver) {
   }
 
@@ -128,19 +116,11 @@ export class DatatablesComponent implements OnInit, OnDestroy, AfterViewInit, Af
   /*
    * private init functions
    * */
-
   private init() {
-    let defaultSettings = Object.assign({}, this.DEFAULT_SETTINGS);
-    if (this.hideSearchInput) {
-     // defaultSettings.dom = this.NO_SEARCH_INPUT_DOM;
-    }
-    this.options$ = $.extend(true, defaultSettings,
+    this.options = $.extend(true, this.DEFAULT_SETTINGS,
       {ajax: typeof this.ajaxOptions == 'string' ? {url: this.ajaxOptions} : this.ajaxOptions});
-    this.options$ = $.extend(true, this.options$, this.options || {});
-    this.options$ = $.extend(true, this.options$, this.PRIVATE_SETTINGS);
-
-    this.options$.serverSide = (this.options$.ajax && (typeof this.options$.ajax == 'string' || this.options$.ajax['url'] || $.isFunction(this.options$.ajax)));
-    this.options$.data = this.options$.serverSide ? null : [];
+    this.options.serverSide = (this.options.ajax && (typeof this.options.ajax == 'string' || this.options.ajax['url'] || $.isFunction(this.options.ajax)));
+    this.options.data = this.options.serverSide ? null : this.data;
   }
 
   private initDataTable(): void {
@@ -148,14 +128,8 @@ export class DatatablesComponent implements OnInit, OnDestroy, AfterViewInit, Af
     if (!$.fn.DataTable['isDataTable'](tableNode)) {
       $(tableNode).DataTable().destroy();
     }
-    this.options$.columnDefs = this.initColumnDefs();
-    this._dataTableApi = $(tableNode).DataTable(this.options$);
-    if (this.data && !this.options$.serverSide) {
-      setTimeout(() => {
-        this._dataTableApi.rows.add(this.data).draw();
-      }, 200);
-
-    }
+    this.options.columnDefs = this.initColumnDefs();
+    this._dataTableApi = $(tableNode).DataTable(this.options);
   }
 
   private renderDirtyData() {
@@ -271,15 +245,15 @@ export class DatatablesComponent implements OnInit, OnDestroy, AfterViewInit, Af
    * event functions for datatables callbacks
    * */
 
-  private onPreDrawCallbackEvent(settings: DataTables.SettingsLegacy) {
+  private  onPreDrawCallbackEvent(settings: DataTables.SettingsLegacy) {
   }
 
-  private onDrawCallbackEvent(settings: DataTables.SettingsLegacy) {
+  private  onDrawCallbackEvent(settings: DataTables.SettingsLegacy) {
     let data = this.currentData();
     this.dataListener.next(data);
   }
 
-  private onHeaderCallbackEvent(thead: Node, data: any[], start: number, end: number, display: any[]) {
+  private  onHeaderCallbackEvent(thead: Node, data: any[], start: number, end: number, display: any[]) {
     this.initColumnHeader(thead);
   }
 
@@ -294,11 +268,10 @@ export class DatatablesComponent implements OnInit, OnDestroy, AfterViewInit, Af
     return data;
   }
 
-  private NO_SEARCH_INPUT_DOM = "<'row'<'col-sm-6'><'col-sm-6'<'dataTables_toolbar'>>>" +
-    "<'row'<'col-sm-12'tr>>" +
-    "<'row'<'col-sm-5'i><'col-sm-7 text-right'lp>>";
   private DEFAULT_SETTINGS = {
-
+    dom: "<'row'<'col-sm-6'f><'col-sm-6'<'dataTables_toolbar'>>>" +
+    "<'row'<'col-sm-12'tr>>" +
+    "<'row'<'col-sm-5'i><'col-sm-7 text-right'lp>>",
     //serverSide: true,
     responsive: true,
     searching: false,
@@ -323,29 +296,6 @@ export class DatatablesComponent implements OnInit, OnDestroy, AfterViewInit, Af
     language: {
       //processing: '<span class="fa fa-spinner fa-pulse fa-spin dataTables_processing"></span> loading...',
       lengthMenu: "Records Per Page: _MENU_"
-    }
-  };
-
-  private PRIVATE_SETTINGS = {
-    initComplete: (settings: DataTables.SettingsLegacy, json: Object) => {
-      this.initListener.next(json);
-      if (this.options && $.isFunction(this.options.initComplete))
-        this.options.initComplete.call(this.dataTableApi, settings, json);
-    },
-    headerCallback: (thead: Node, data: any[], start: number, end: number, display: any[]) => {
-      this.onHeaderCallbackEvent(thead, data, start, end, display);
-      if (this.options && $.isFunction(this.options.initComplete))
-        this.options.initComplete.call(this.dataTableApi, thead, data, start, end, display);
-    },
-    drawCallback: (settings: DataTables.SettingsLegacy) => {
-      this.onDrawCallbackEvent(settings);
-      if (this.options && $.isFunction(this.options.initComplete))
-        this.options.initComplete.call(this.dataTableApi, settings);
-    },
-    preDrawCallback: (settings: DataTables.SettingsLegacy) => {
-      this.onPreDrawCallbackEvent(settings);
-      if (this.options && $.isFunction(this.options.initComplete))
-        this.options.initComplete.call(this.dataTableApi, settings);
     }
   };
 
@@ -424,20 +374,6 @@ export class DatatablesComponent implements OnInit, OnDestroy, AfterViewInit, Af
     let deselect = this.dataTableApi.rows()['deselect'];
     if ($.isFunction(deselect)) {
       deselect();
-    }
-  }
-
-  isServerSide(): boolean {
-    return this.dataTableApi.page.info().serverSide;
-  }
-
-  reload() {
-    if (!this.isServerSide()) {
-      this.dataTableApi.draw(true);
-    }
-    else {
-      this.dataTableApi.clear();
-      this.dataTableApi.draw();
     }
   }
 }

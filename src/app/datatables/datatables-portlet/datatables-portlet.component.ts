@@ -40,10 +40,6 @@ export class DatatablesPortletComponent implements OnInit, AfterViewInit, AfterC
 
   public filtersTemplate: DatatablesTemplateDirective;
 
-  public toolsTemplate: DatatablesTemplateDirective;
-
-  public captionTemplate: DatatablesTemplateDirective;
-
   @Input()
   caption ?: string;
 
@@ -91,8 +87,6 @@ export class DatatablesPortletComponent implements OnInit, AfterViewInit, AfterC
     if (this.templates) {
       this.actionsTemplate = this.findTemplateFor('actions');
       this.filtersTemplate = this.findTemplateFor('filters');
-      this.toolsTemplate = this.findTemplateFor('tools');
-      this.captionTemplate = this.findTemplateFor('caption');
       if (this.actionsTemplate)
         this.initActions();
     }
@@ -107,32 +101,6 @@ export class DatatablesPortletComponent implements OnInit, AfterViewInit, AfterC
     }
     return {};
   }
-
-  filters(): Object {
-    if (this.filtersTemplate) {
-      let element = this.filterPanelElementRef.nativeElement;
-      let forms = element.getElementsByTagName("form");
-      return forms && forms.length ? this.serializeToJSON(forms[0]) : {};
-    }
-    return {};
-  }
-
-  resetFilters(): void {
-    if (this.filtersTemplate) {
-      let element = this.filterPanelElementRef.nativeElement;
-      let forms = element.getElementsByTagName("form");
-      if (forms && forms.length) {
-        forms[0].reset();//$('#form_id').trigger("reset");
-      }
-    }
-  }
-
-  filtersPanel(): ElementRef {
-    return this.filterPanelElementRef.nativeElement;
-  }
-
-  toggleFilter: Function = () => {
-  };
 
   /*init of view panels*/
   private initTools() {
@@ -224,7 +192,6 @@ export class DatatablesPortletComponent implements OnInit, AfterViewInit, AfterC
     };
     $filterBtn.off('click.dt').on('click.dt', onclickFilter);
     onclickFilter(null);
-    this.toggleFilter = onclickFilter;
   }
 
   private initFullscreenTool($toolPanel: JQuery) {
@@ -249,6 +216,7 @@ export class DatatablesPortletComponent implements OnInit, AfterViewInit, AfterC
     console.log(this.actionsTemplate.templateRef.elementRef.nativeElement);
     if (this.datatablesComponent && this.actionsTemplate) {
       let subscription = this.datatablesComponent.toolbar.subscribe((toolbar: Element) => {
+        console.log("=" + toolbar);
         $(toolbar).append($(this.actionsTemplate.templateRef.elementRef.nativeElement));
       });
     }
