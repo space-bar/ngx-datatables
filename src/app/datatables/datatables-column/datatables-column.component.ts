@@ -25,6 +25,9 @@ export class DatatablesColumnComponent implements OnInit {
   field?: string;
 
   @Input()
+  data?: string;
+
+  @Input()
   sortField?: string;
 
   @Input()
@@ -123,7 +126,7 @@ export class DatatablesColumnComponent implements OnInit {
     columnDefs.visible = this.visible;
     columnDefs.width = this.width;
     columnDefs.orderable = (isUndefined(this.orderable) && this.rowSelector) ? false : this.orderable;
-    columnDefs.data = this.field;
+    columnDefs.data = this.data || this.field;
     return columnDefs;
   }
 }
