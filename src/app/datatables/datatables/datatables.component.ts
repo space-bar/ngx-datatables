@@ -68,7 +68,7 @@ export class DatatablesComponent implements OnInit, OnDestroy, AfterViewInit, Af
   }
 
   /*
-   * lifecyscle callback functions
+   * lifecycle callback functions
    * */
   ngOnInit() {
     this.dataListener.subscribe((data) => {
