@@ -1,28 +1,88 @@
-# NgxDatatables
+# ngx-datatables [![NPM version](https://badge.fury.io/js/spacebar.svg)](https://npmjs.org/package/spacebar) [![Build Status](https://travis-ci.org/blackbox-project/spacebar.svg?branch=master)](https://travis-ci.org/blackbox-project/spacebar)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.1.3.
+> Angular DataTable library based on the popular jQuery DataTables
 
-## Development server
+## Installation
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+```sh
+$ npm install --save @spacebar/ngx-datatables
+```
+######  Depencencies
+```
+npm install jquery --save
+npm install datatables.net --save
+npm install datatables.net-dt --save
 
-## Code scaffolding
+npm install @types/jquery --save-dev
+npm install @types/datatables.net --save-dev
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|module`.
+```
+######  Depencencies DataTable Extensions 
+```
+npm install datatables.net-responsive --save
+npm install datatables.net-select --save
+```
 
-## Build
+## Usage
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+######  Import DatatablesModules
+```
+import { NgModule } from '@angular/core';
+import {DatatablesModule} from '@spacebar/ngx-datatables';
 
-## Running unit tests
+@NgModule({
+  imports: [
+    DatatablesModule
+  ]
+})
+export class AppModule {
+}
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+######  Basic ngx-datatables html 
+```
+ <ngx-datatables [options]="datatablesOptions">
+ 
+    <ngx-datatables-column header="Name" field="name">
+    </ngx-datatables-column>
+    
+    <ngx-datatables-column header="Description" field="description">
+    </ngx-datatables-column>
+    
+ </ngx-datatables>
+```
+######  Using Custom Column Content
+```
+<ngx-datatables-column header="Thumbnail" field="id">
+ <ng-template ngxDatatablesTemplate="body">
+    <img src="..."/>
+ </ng-template>
+</ngx-datatables-column>
+```
 
-## Running end-to-end tests
+######  Using Row Selector
+```
+<ngx-datatables-column [rowSelector]="true" field="id">
+</ngx-datatables-column>
+```
+######  Using Row Actions
+```
+ <ngx-datatables-column header="Actions" field="id">
+      <ng-template ngxDatatablesTemplate="body" let-context>
+        <div>
+          <a (click)="_onEdit($event,context)" class="btn btn-success" href="javascript:"
+             title="Edit">
+            <i class="glyphicon glyphicon-pencil"></i>
+          </a>
+          <a (click)="_onDelete($event,context)" class="btn btn-danger" href="javascript:"
+             title="Delete">
+            <i class="glyphicon glyphicon-trash"></i>
+          </a>
+        </div>
+      </ng-template>
+</ngx-datatables-column>
+```
+## Work still in progress
+## License
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-Before running the tests make sure you are serving the app via `ng serve`.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+MIT © [Oluwaseun Ogunjimi](). Released under the MIT license. 

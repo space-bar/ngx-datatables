@@ -1,6 +1,5 @@
-import {Component, ContentChildren, Input, OnInit, QueryList, SimpleChanges} from "@angular/core";
-import {isUndefined} from "util";
-import {DatatablesTemplateDirective} from "../datatables-template/datatables-template.directive";
+import {AfterContentInit, Component, ContentChildren, Input, OnInit, QueryList, SimpleChanges} from '@angular/core';
+import {DatatablesTemplateDirective} from '../datatables-template/datatables-template.directive';
 
 
 @Component({
@@ -8,7 +7,7 @@ import {DatatablesTemplateDirective} from "../datatables-template/datatables-tem
   templateUrl: './datatables-column.component.html',
   styleUrls: ['./datatables-column.component.css']
 })
-export class DatatablesColumnComponent implements OnInit {
+export class DatatablesColumnComponent implements OnInit, AfterContentInit {
   @ContentChildren(DatatablesTemplateDirective)
   private templates: QueryList<DatatablesTemplateDirective>;
 
@@ -55,10 +54,10 @@ export class DatatablesColumnComponent implements OnInit {
   orderable?: boolean;
 
   @Input()
-  searchable?: boolean = true;
+  searchable = true;
 
   @Input()
-  visible?: boolean = true;
+  visible = true;
 
   @Input()
   width?: string;
@@ -78,9 +77,6 @@ export class DatatablesColumnComponent implements OnInit {
       this._footerTemplate = this.findTemplateFor('footer');
       this._bodyTemplate = this.findTemplateFor('body');
     }
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
   }
 
   /*
@@ -109,7 +105,8 @@ export class DatatablesColumnComponent implements OnInit {
   }
 
   private findTemplateFor(templateName: string): DatatablesTemplateDirective {
-    let templates: DatatablesTemplateDirective[] = this.templates != null ? this.templates.filter(template => template.ngxDatatablesTemplate === templateName) : null;
+    const templates: DatatablesTemplateDirective[] = this.templates != null ?
+      this.templates.filter(template => template.ngxDatatablesTemplate === templateName) : null;
     if (templates != null && templates.length > 1) {
       console.warn(`Multiple '${templateName}' Column template detected [ignored]`);
     }
@@ -120,12 +117,12 @@ export class DatatablesColumnComponent implements OnInit {
    * public helper functions
    */
   buildColumnDefs(): DataTables.ColumnDefsSettings {
-    let columnDefs: DataTables.ColumnDefsSettings = <DataTables.ColumnDefsSettings>{};
+    const columnDefs: DataTables.ColumnDefsSettings = <DataTables.ColumnDefsSettings>{};
     columnDefs.searchable = this.searchable;
     columnDefs.title = this.title;
     columnDefs.visible = this.visible;
     columnDefs.width = this.width;
-    columnDefs.orderable = (isUndefined(this.orderable) && this.rowSelector) ? false : this.orderable;
+    columnDefs.orderable = (typeof this.orderable === 'undefined' && this.rowSelector) ? false : this.orderable;
     columnDefs.data = this.data || this.field;
     return columnDefs;
   }

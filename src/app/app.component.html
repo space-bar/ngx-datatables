@@ -20,7 +20,7 @@
 </ul>
 
 
-<ngx-datatables-portlet caption="Users">
+<ngx-datatables-portlet caption="Users" style="display:none">
   <ng-template ngxDatatablesTemplate="filters">
     <div class="row">
       <div class="col-md-4 form-group">
@@ -53,41 +53,42 @@
     </div>
   </ng-template>
 
-  <ngx-datatables [data]="data" [ajax]="ajax">
-    <ngx-datatables-column header="User Role" [rowSelector]="true" param="field" field="field">
-    </ngx-datatables-column>
-
-    <ngx-datatables-column header="User Role" field="name">
-      <ng-template ngxDatatablesTemplate="header">Name</ng-template>
-    </ngx-datatables-column>
-    <ngx-datatables-column header="Job" field="job">
-
-    </ngx-datatables-column>
-    <ngx-datatables-column header="Type" field="field">
-
-    </ngx-datatables-column>
-    <ngx-datatables-column header="Actions" param="field" field="field">
-      <ng-template ngxDatatablesTemplate="body" let-context>
-        <div class="btn-toolbar">
-          <a (click)="_onClick($event,context)" class="btn btn-sm blue-hoki" href="javascript:"
-             title="Search">
-            <i class="glyphicon glyphicon-search"></i>
-          </a>
-          <a (click)="_onClick($event,context)" class="btn btn-sm blue-hoki green-steel" href="javascript:"
-             title="Edit">
-            <i class="glyphicon glyphicon-pencil"></i>
-          </a>
-          <a (click)="_onClick($event,context)" class="btn btn-sm blue-hoki red-haze" href="javascript:"
-             title="Delete">
-            <i class="glyphicon glyphicon-search"></i>
-          </a>
-        </div>
-      </ng-template>
-    </ngx-datatables-column>
-
-  </ngx-datatables>
 
 </ngx-datatables-portlet>
+
+<ngx-datatables [data]="data" [ajax]="ajax">
+  <ngx-datatables-column header="User Role" [rowSelector]="true" field="field">
+  </ngx-datatables-column>
+
+  <ngx-datatables-column header="User Role" field="name">
+    <ng-template ngxDatatablesTemplate="header">Name</ng-template>
+  </ngx-datatables-column>
+  <ngx-datatables-column header="Job" field="job">
+
+  </ngx-datatables-column>
+  <ngx-datatables-column header="Type" field="field">
+
+  </ngx-datatables-column>
+  <ngx-datatables-column header="Actions" param="field" field="field">
+    <ng-template ngxDatatablesTemplate="body" let-context>
+      <div class="btn-toolbar">
+        <a (click)="_onClick($event,context)" class="btn btn-sm blue-hoki" href="javascript:"
+           title="Search">
+          <i class="glyphicon glyphicon-search"></i>
+        </a>
+        <a (click)="_onClick($event,context)" class="btn btn-sm blue-hoki green-steel" href="javascript:"
+           title="Edit">
+          <i class="glyphicon glyphicon-pencil"></i>
+        </a>
+        <a (click)="_onClick($event,context)" class="btn btn-sm blue-hoki red-haze" href="javascript:"
+           title="Delete">
+          <i class="glyphicon glyphicon-search"></i>
+        </a>
+      </div>
+    </ng-template>
+  </ngx-datatables-column>
+
+</ngx-datatables>
 
 
 

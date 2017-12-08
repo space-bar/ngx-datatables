@@ -1,6 +1,6 @@
-<div class="table-container datatable-container">
+<div class="table-container datatable-container {{containerClass}}">
 
-  <table class="table table-striped table-bordered table-hover table-checkable" #tableElement>
+  <table class="display {{tableClass}}" #tableElement>
     <thead>
     <tr role="row" class="heading">
       <th *ngFor="let column of columns;let colIndex = index"
@@ -13,13 +13,8 @@
                         #headerTemplate></ng-container>
 
           <span *ngSwitchCase="2">
-            <span class="md-checkbox">
-              <input type="checkbox" id="rowselector_{{colIndex}}" class="md-check">
-              <label for="rowselector_{{colIndex}}">
-                <span></span>
-                <span class="check"></span>
-                <span class="box"></span>
-              </label>
+            <span class="rowselector-checkbox">
+              <input type="checkbox" id="rowselector_{{colIndex}}">
             </span>
           </span>
 

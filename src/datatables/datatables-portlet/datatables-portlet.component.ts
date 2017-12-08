@@ -9,9 +9,9 @@ import {
   OnInit,
   QueryList,
   ViewChild
-} from "@angular/core";
-import {DatatablesTemplateDirective} from "../datatables-template/datatables-template.directive";
-import {DatatablesComponent} from "../datatables/datatables.component";
+} from '@angular/core';
+import {DatatablesTemplateDirective} from '../datatables-template/datatables-template.directive';
+import {DatatablesComponent} from '../datatables/datatables.component';
 
 
 @Component({
@@ -39,6 +39,10 @@ export class DatatablesPortletComponent implements OnInit, AfterViewInit, AfterC
   public actionsTemplate: DatatablesTemplateDirective;
 
   public filtersTemplate: DatatablesTemplateDirective;
+
+  public toolsTemplate: DatatablesTemplateDirective;
+
+  public captionTemplate: DatatablesTemplateDirective;
 
   @Input()
   caption ?: string;
@@ -73,6 +77,7 @@ export class DatatablesPortletComponent implements OnInit, AfterViewInit, AfterC
   @Input()
   hideFullscreenIconClass ?: string;
 
+
   constructor(private elementRef: ElementRef) {
   }
 
@@ -87,25 +92,49 @@ export class DatatablesPortletComponent implements OnInit, AfterViewInit, AfterC
     if (this.templates) {
       this.actionsTemplate = this.findTemplateFor('actions');
       this.filtersTemplate = this.findTemplateFor('filters');
-      if (this.actionsTemplate)
+      this.toolsTemplate = this.findTemplateFor('tools');
+      this.captionTemplate = this.findTemplateFor('caption');
+      if (this.actionsTemplate) {
         this.initActions();
+      }
     }
   }
 
   /*public helper functions*/
-  get filtersData(): Object {
+  filters(): Object {
     if (this.filtersTemplate) {
-      let element = this.filtersTemplate.templateRef.elementRef.nativeElement;
-      let forms = element.getElementsByTagName("form");
+      const element = this.filterPanelElementRef.nativeElement;
+      const forms = element.getElementsByTagName('form');
       return forms && forms.length ? this.serializeToJSON(forms[0]) : {};
     }
     return {};
   }
 
+  resetFilters(): void {
+    if (this.filtersTemplate) {
+      const element = this.filterPanelElementRef.nativeElement;
+      const forms = element.getElementsByTagName('form');
+      if (forms && forms.length) {
+        $(forms).trigger('reset');
+      }
+    }
+  }
+
+  isFilterOpened(): boolean {
+    return this.filtersTemplate && $(this.filterPanelElementRef.nativeElement).is(':visible');
+  }
+
+  filterPanel(): ElementRef {
+    return this.filterPanelElementRef.nativeElement;
+  }
+
+  toggleFilter: Function = () => {
+  };
+
   /*init of view panels*/
   private initTools() {
     if (this.toolsPanelElementRef) {
-      let $toolsPanel = $(this.toolsPanelElementRef.nativeElement);
+      const $toolsPanel = $(this.toolsPanelElementRef.nativeElement);
       $toolsPanel.children('a.btn-outline').off('mouseleave.tools.dt').on('mouseleave.tools.dt', function (e) {
         $(this).blur();
       });
@@ -116,70 +145,17 @@ export class DatatablesPortletComponent implements OnInit, AfterViewInit, AfterC
 
   private initActions() {
     if (this.actionsPanelElementRef) {
-      let $actionsPanel = $(this.actionsPanelElementRef.nativeElement);
+      const $actionsPanel = $(this.actionsPanelElementRef.nativeElement);
     }
     this.initActionsToolbar(null);
   }
 
-  /* private initActions() {
-   if (this.actionsPanelElementRef) {
-   let $actionsPanel = $(this.actionsPanelElementRef.nativeElement);
-   let $actionPanelActions = $actionsPanel.children('a.btn-outline');
-   $actionPanelActions.off('mouseleave.actions.dt').on('mouseleave.actions.dt', function (e) {
-   $(this).blur();
-   });
-   this.initFilterTool($actionsPanel);
-   this.initFullscreenTool($actionsPanel);
-   }
-   }*/
-
-  /* private initFilterComponent2() {
-   let $filterPanel = $(this.filterPanelElementRef.nativeElement);
-   let $filterBtn = $(this.actionsPanelElementRef.nativeElement).find('a.filter');
-   $filterBtn.off('click.dt').on('click.dt', (e) => {
-   e.preventDefault();
-   let $filterBtnIcon = $filterBtn.find('i:last');
-   if ($filterPanel.is(':visible')) {
-   //$filterBtnIcon.removeClass('active');
-   $filterPanel.slideUp(200, () => {
-   $filterBtn.removeClass('active');
-   $filterBtnIcon.removeClass('fa-chevron-up').addClass('fa-chevron-down');
-   });
-   } else {
-   //$filterBtnIcon.removeClass('active');
-   $filterPanel.slideDown(200, () => {
-   $filterBtn.addClass('active');
-   $filterBtnIcon.removeClass('fa-chevron-down').addClass('fa-chevron-up');
-   });
-   }
-   });
-   }
-
-   private initFilter() {
-   let $filterPanel = $(this.filterPanelElementRef.nativeElement);
-   let $filterBtn = $(this.actionsPanelElementRef.nativeElement).find('a.filter');
-   let filter_onclick = (e) => {
-   if (e)
-   e.preventDefault();
-   let $filterBtnIcon = $filterBtn.find('i:last');
-   if (e ? $filterPanel.is(':visible') : !$filterPanel.is(':visible')) {
-   $filterBtn.removeClass('active').addClass('btn-outline');
-   $filterPanel.slideUp(200);
-   } else {
-   $filterBtn.addClass('active').removeClass('btn-outline');
-   $filterPanel.slideDown(200);
-   }
-   };
-   $filterBtn.off('click.dt').on('click.dt', filter_onclick);
-   filter_onclick(null);
-   }*/
-
 
   private initFilterTool($toolPanel: JQuery) {
-    let $filterBtn = $toolPanel.children('a.filter');
-    let $filterPanel = $(this.filterPanelElementRef.nativeElement);
-    let $filterBtnIcon = $filterBtn.find('i:last');
-    let onclickFilter = (e) => {
+    const $filterBtn = $toolPanel.children('a.filter');
+    const $filterPanel = $(this.filterPanelElementRef.nativeElement);
+    const $filterBtnIcon = $filterBtn.find('i:last');
+    const onclickFilter = (e) => {
       if (e)
         e.preventDefault();
       if (e ? $filterPanel.is(':visible') : !$filterPanel.is(':visible')) {
@@ -190,14 +166,16 @@ export class DatatablesPortletComponent implements OnInit, AfterViewInit, AfterC
         $filterPanel.slideDown(200);
       }
     };
+
     $filterBtn.off('click.dt').on('click.dt', onclickFilter);
     onclickFilter(null);
+    this.toggleFilter = onclickFilter;
   }
 
   private initFullscreenTool($toolPanel: JQuery) {
-    let $fullscreenBtn = $toolPanel.find('a.fullscreen');
-    let $fullscreenBtnIcon = $fullscreenBtn.find('i:last');
-    let onclickFullscreen = () => {
+    const $fullscreenBtn = $toolPanel.find('a.fullscreen');
+    const $fullscreenBtnIcon = $fullscreenBtn.find('i:last');
+    const onclickFullscreen = () => {
       setTimeout(() => {
         if ($fullscreenBtn.hasClass('on')) {
           $fullscreenBtnIcon.removeClass('fa-expand').addClass('fa-compress');
@@ -213,10 +191,8 @@ export class DatatablesPortletComponent implements OnInit, AfterViewInit, AfterC
   }
 
   private initActionsToolbar($actionsPanel: JQuery) {
-    console.log(this.actionsTemplate.templateRef.elementRef.nativeElement);
     if (this.datatablesComponent && this.actionsTemplate) {
-      let subscription = this.datatablesComponent.toolbar.subscribe((toolbar: Element) => {
-        console.log("=" + toolbar);
+      const subscription = this.datatablesComponent.toolbar.subscribe((toolbar: Element) => {
         $(toolbar).append($(this.actionsTemplate.templateRef.elementRef.nativeElement));
       });
     }
@@ -224,8 +200,7 @@ export class DatatablesPortletComponent implements OnInit, AfterViewInit, AfterC
 
   /*utility functions*/
   private findTemplateFor(templateName: string): DatatablesTemplateDirective {
-    let templates: DatatablesTemplateDirective[] = this.templates != null ? this.templates.filter(template => {
-      console.log(template);
+    const templates: DatatablesTemplateDirective[] = this.templates != null ? this.templates.filter(template => {
       return template.ngxDatatablesTemplate === templateName
     }) : null;
     if (templates != null && templates.length > 1) {
@@ -236,38 +211,40 @@ export class DatatablesPortletComponent implements OnInit, AfterViewInit, AfterC
 
 
   private serializeToJSON(form): {} {
-    var json = {};
-    $.each($(form).serializeArray(), function (i, n) {
-      var _name = undefined;
-      var _ = n.name.indexOf('[');
+    const json = {};
+    $.each($(form).serializeArray(), function (index, n) {
+      let _name;
+      let _ = n.name.indexOf('[');
       if (_ > -1) {
         _name = n.name.replace(/\]/gi, '').split('[');
       } else if ((_ = n.name.indexOf('.')) > -1) {
         _name = n.name.split('.');
       }
       if (_ > -1 && _name) {
-        var o = json;
-        for (var i = 0, len = _name.length; i < len; i++) {
-          if (i == len - 1) {
+        let o = json;
+        for (let i = 0, len = _name.length; i < len; i++) {
+          if (i === len - 1) {
             if (o[_name[i]]) {
-              if (typeof o[_name[i]] == 'string' || !o[_name[i]].push) {
+              if (typeof o[_name[i]] === 'string' || !o[_name[i]].push) {
                 o[_name[i]] = [o[_name[i]]];
               }
               o[_name[i]].push(n.value);
+            } else {
+              o[_name[i]] = n.value || '';
             }
-            else o[_name[i]] = n.value || '';
+          } else {
+            o = o[_name[i]] = o[_name[i]] || {};
           }
-          else o = o[_name[i]] = o[_name[i]] || {};
         }
-      }
-      else {
+      } else {
         if (json[n.name] !== undefined) {
           if (!json[n.name].push) {
             json[n.name] = [json[n.name]];
           }
           json[n.name].push(n.value || '');
+        } else {
+          json[n.name] = n.value || '';
         }
-        else json[n.name] = n.value || '';
       }
     });
     return json;
