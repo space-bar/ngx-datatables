@@ -86,8 +86,7 @@ export class AppModule {
    <ngx-datatables-column header="Salary"></ngx-datatables-column>
 </ngx-datatables>
 
- ```
- ```
+ 
  export class SampleComponent {
   data: Object[];
   
@@ -118,8 +117,7 @@ export class AppModule {
    <ngx-datatables-column header="Salary"></ngx-datatables-column>
 </ngx-datatables>
 
- ```
- ```
+ 
  export class SampleComponent {
   ajax: DataTables.FunctionAjax;
   
@@ -161,9 +159,7 @@ export class AppModule {
     <ngx-datatables-column header="Salary"></ngx-datatables-column>
  </ngx-datatables>
 
- ```
- 
- ```
+
  export class SampleComponent {
   options: DataTables.Settings;
   
@@ -205,10 +201,11 @@ export class AppModule {
 
 > Below shows multiple ways pass data to `ngx-datatables`. 
 > However note that only one of the three attributes is required, hence the `options` takes higher precedency.
-> Order of precedency is...
-> 1. `options`
-> 2. `ajax`
-> 3. `data`
+> Order of priority is stated as...
+
+ 1. `options`
+ 2. `ajax`
+ 3. `data`
 
 ```
  <ngx-datatables [data]="data" [ajax]=[ajax] [options]="options">
@@ -220,8 +217,7 @@ export class AppModule {
     <ngx-datatables-column header="Salary" field="salary"></ngx-datatables-column>
  </ngx-datatables>
 
- ```
- ```
+ 
  export class SampleComponent {
   data:Object[];
   ajax: DataTables.FunctionAjax;
@@ -286,6 +282,7 @@ export class AppModule {
 ```
 <ngx-datatables-column [rowSelector]="true" field="id">
 </ngx-datatables-column>
+
 ```
 
 #### Using Custom Column Content
