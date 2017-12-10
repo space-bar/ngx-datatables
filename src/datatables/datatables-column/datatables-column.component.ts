@@ -1,4 +1,4 @@
-import {AfterContentInit, Component, ContentChildren, Input, OnInit, QueryList, SimpleChanges} from '@angular/core';
+import {AfterContentInit, Component, ContentChildren, Input, OnInit, QueryList} from '@angular/core';
 import {DatatablesTemplateDirective} from '../datatables-template/datatables-template.directive';
 
 
@@ -116,7 +116,8 @@ export class DatatablesColumnComponent implements OnInit, AfterContentInit {
   /*
    * public helper functions
    */
-  buildColumnDefs(): DataTables.ColumnDefsSettings {
+  buildColumnDefs(colSettings: DataTables.ColumnSettings): DataTables.ColumnDefsSettings {
+    //const columnDefs: DataTables.ColumnDefsSettings = colSettings ? Object.assign(<DataTables.ColumnDefsSettings>{}, colSettings || {}) : <DataTables.ColumnDefsSettings>{};
     const columnDefs: DataTables.ColumnDefsSettings = <DataTables.ColumnDefsSettings>{};
     columnDefs.searchable = this.searchable;
     columnDefs.title = this.title;
@@ -124,6 +125,7 @@ export class DatatablesColumnComponent implements OnInit, AfterContentInit {
     columnDefs.width = this.width;
     columnDefs.orderable = (typeof this.orderable === 'undefined' && this.rowSelector) ? false : this.orderable;
     columnDefs.data = this.data || this.field;
-    return columnDefs;
+
+    return colSettings ? Object.assign(columnDefs, colSettings) : columnDefs;
   }
 }

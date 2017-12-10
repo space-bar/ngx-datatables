@@ -141,6 +141,9 @@ export class DatatablesComponent implements OnInit, OnDestroy, AfterViewInit, Af
   ngOnDestroy(): void {
     this.dataListener.unsubscribe();
     this.initListener.unsubscribe();
+    if (this._dataTableApi) {
+      this._dataTableApi.destroy(true);
+    }
   }
 
   /*
@@ -236,7 +239,11 @@ export class DatatablesComponent implements OnInit, OnDestroy, AfterViewInit, Af
   private initColumnDefs(): DataTables.ColumnDefsSettings[] {
     const columnDefs: DataTables.ColumnDefsSettings[] = [];
     this.columns.forEach((item, index, items) => {
-      let columnDef: DataTables.ColumnDefsSettings = item.buildColumnDefs();
+      let columnSettings;
+      if (this.options && this.options.columns && this.options.columns.length > index) {
+        columnSettings = this.options.columns[index];
+      }
+      let columnDef: DataTables.ColumnDefsSettings = item.buildColumnDefs(columnSettings);
       columnDef = columnDef ? columnDef : <DataTables.ColumnDefsSettings>{};
       columnDef.targets = index;
       if (item.rowSelector) {

@@ -56,20 +56,20 @@
 
 </ngx-datatables-portlet>
 
-<ngx-datatables [data]="data" [ajax]="ajax">
-  <ngx-datatables-column header="User Role" [rowSelector]="true" field="field">
+<ngx-datatables [options]="options">
+  <ngx-datatables-column header="User Role" [rowSelector]="true" >
   </ngx-datatables-column>
 
-  <ngx-datatables-column header="User Role" field="name">
+  <ngx-datatables-column header="User Role" >
     <ng-template ngxDatatablesTemplate="header">Name</ng-template>
   </ngx-datatables-column>
-  <ngx-datatables-column header="Job" field="job">
+  <ngx-datatables-column header="Job" >
 
   </ngx-datatables-column>
-  <ngx-datatables-column header="Type" field="field">
+  <ngx-datatables-column header="Type">
 
   </ngx-datatables-column>
-  <ngx-datatables-column header="Actions" param="field" field="field">
+  <ngx-datatables-column header="Actions" >
     <ng-template ngxDatatablesTemplate="body" let-context>
       <div class="btn-toolbar">
         <a (click)="_onClick($event,context)" class="btn btn-sm blue-hoki" href="javascript:"
