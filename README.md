@@ -336,4 +336,4 @@ export class AppModule {
 
 ## License
 
-MIT © [Oluwaseun Ogunjimi](). Released under the MIT license. 
+[MIT](/space-bar/ngx-datatables/blob/master/LICENSE) © [Oluwaseun Ogunjimi](). Released under the MIT license. 
