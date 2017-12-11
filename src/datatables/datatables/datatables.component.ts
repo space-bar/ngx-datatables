@@ -42,13 +42,13 @@ export class DatatablesComponent implements OnInit, OnDestroy, AfterViewInit, Af
   @Input()
   containerClass: string;
 
-  @Input('data')
+  @Input()
   data: Object[];
 
-  @Input('ajax')
-  ajaxOptions: string | DataTables.AjaxSettings | DataTables.FunctionAjax;
+  @Input()
+  ajax: string | DataTables.AjaxSettings | DataTables.FunctionAjax;
 
-  @Input('options')
+  @Input()
   options: DataTables.Settings;
 
   private options$: DataTables.Settings;
@@ -151,7 +151,7 @@ export class DatatablesComponent implements OnInit, OnDestroy, AfterViewInit, Af
    * */
 
   private init() {
-    this.options$ = {ajax: typeof this.ajaxOptions === 'string' ? {url: this.ajaxOptions} : this.ajaxOptions};
+    this.options$ = {ajax: typeof this.ajax === 'string' ? {url: this.ajax} : this.ajax};
     this.options$ = $.extend(true, this.options$, this.options || {});
     this.options$ = $.extend(true, this.options$, this.PRIVATE_SETTINGS);
 
@@ -183,7 +183,7 @@ export class DatatablesComponent implements OnInit, OnDestroy, AfterViewInit, Af
           if (paramIndexes.length > 3) {
             const row = paramIndexes[3];
             const col = paramIndexes[2];
-            if (!isNaN(parseInt(row)) && !isNaN(parseInt(row))) {
+            if (!isNaN(parseInt(row, 10)) && !isNaN(parseInt(row, 10))) {
               const cell = this.dataTableApi.cell(row, col);
               if (cell) {
                 const $cell = $(cell.node());

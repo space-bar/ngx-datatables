@@ -1,8 +1,27 @@
 {
   "name": "@spacebar/ngx-datatables",
-  "version": "1.0.1",
+  "version": "0.1.0",
   "license": "MIT",
-  "author": "Oluwaseun Ogunjimi <seun.ogunjimi@outlook.com>",
+  "author": "Oluwaseun Ogunjimi <seun.ogunjimi@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/swimlane/ngx-datatable.git"
+  },
+  "keywords": [
+    "angularjs",
+    "angular",
+    "javascript",
+    "angular2",
+    "datatable",
+    "datatables",
+    "grid",
+    "table"
+  ],
+  "private": false,
+  "bugs": {
+    "url": "https://github.com/space-bar/ngx-datatables/issues"
+  },
+  "homepage": "https://github.com/space-bar/ngx-datatables#readme",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -12,10 +31,19 @@
     "e2e": "ng e2e",
     "packagr": "ng-packagr -p ng-package.json"
   },
-  "private": false,
-  "peerDependencies": {},
+  "peerDependencies": {
+    "@angular/common": ">=4.0.0 || >5.0.0",
+    "@angular/compiler": ">=4.0.0 || >5.0.0",
+    "@angular/core": ">=4.0.0 || >5.0.0",
+    "@angular/platform-browser": ">=4.0.0 || >5.0.0",
+    "@angular/platform-browser-dynamic": ">=4.0.0 || >5.0.0",
+    "core-js": "^2.5.1",
+    "rxjs": ">=5.1.0",
+    "datatables.net": ">=1.10.16",
+    "datatables.net-dt": ">=1.10.16",
+    "jquery": ">=0.8.14"
+  },
   "dependencies": {
-    "@angular-devkit/schematics": "0.0.40",
     "@angular/animations": "^4.4.6",
     "@angular/common": "^4.4.6",
     "@angular/compiler": "^4.4.6",
@@ -41,7 +69,6 @@
     "@types/jquery": "^3.2.16",
     "@types/node": "^6.0.92",
     "codelyzer": "~3.0.1",
-    "generate-readme": "^0.3.1",
     "jasmine-core": "~2.6.2",
     "jasmine-spec-reporter": "~4.1.0",
     "karma": "^1.7.1",

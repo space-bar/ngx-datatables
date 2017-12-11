@@ -117,7 +117,8 @@ export class DatatablesColumnComponent implements OnInit, AfterContentInit {
    * public helper functions
    */
   buildColumnDefs(colSettings: DataTables.ColumnSettings): DataTables.ColumnDefsSettings {
-    //const columnDefs: DataTables.ColumnDefsSettings = colSettings ? Object.assign(<DataTables.ColumnDefsSettings>{}, colSettings || {}) : <DataTables.ColumnDefsSettings>{};
+    // const columnDefs: DataTables.ColumnDefsSettings = colSettings
+    // ? Object.assign(<DataTables.ColumnDefsSettings>{}, colSettings || {}) : <DataTables.ColumnDefsSettings>{};
     const columnDefs: DataTables.ColumnDefsSettings = <DataTables.ColumnDefsSettings>{};
     columnDefs.searchable = this.searchable;
     columnDefs.title = this.title;

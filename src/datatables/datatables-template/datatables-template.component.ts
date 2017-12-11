@@ -6,8 +6,8 @@ import {
   OnInit,
   QueryList,
   ViewContainerRef
-} from "@angular/core";
-import {DatatablesColumnComponent} from "../datatables-column/datatables-column.component";
+} from '@angular/core';
+import {DatatablesColumnComponent} from '../datatables-column/datatables-column.component';
 
 @Component({
   selector: 'ngx-datatables-template',
@@ -22,7 +22,8 @@ export class DatatablesTemplateComponent implements OnInit {
   @Input()
   data: Object[];
 
-  constructor(private elementRef: ElementRef, private viewContainerRef: ViewContainerRef, private componentFactoryResolver: ComponentFactoryResolver) {
+  constructor(private elementRef: ElementRef, private viewContainerRef: ViewContainerRef,
+              private componentFactoryResolver: ComponentFactoryResolver) {
   }
 
   ngOnInit() {
@@ -34,8 +35,9 @@ export class DatatablesTemplateComponent implements OnInit {
 
   private buildTemplateComponent(data: Object[], columns?: QueryList<DatatablesColumnComponent>): DatatablesTemplateComponent {
     this.viewContainerRef.clear();
-    let rendererComponentFactory = this.componentFactoryResolver.resolveComponentFactory(DatatablesTemplateComponent);
-    let datatablesTemplateComponent = <DatatablesTemplateComponent>this.viewContainerRef.createComponent(rendererComponentFactory).instance;
+    const rendererComponentFactory = this.componentFactoryResolver.resolveComponentFactory(DatatablesTemplateComponent);
+    const datatablesTemplateComponent =
+      <DatatablesTemplateComponent>this.viewContainerRef.createComponent(rendererComponentFactory).instance;
     datatablesTemplateComponent.columns = columns;
     datatablesTemplateComponent.data = data;
     return datatablesTemplateComponent;

@@ -1,5 +1,5 @@
 
-# ngx-datatables  [![NPM version](https://badge.fury.io/js/ngx-datatables.svg)](https://npmjs.org/package/spacebar/ngx-datatables) [![Build Status](https://travis-ci.org/spacebar/ngx-datatables.svg?branch=master)](https://travis-ci.org/spacebar/ngx-datatables)
+# ngx-datatables  [![NPM version](https://badge.fury.io/js/ngx-datatables.svg)](https://npmjs.org/package/@spacebar/ngx-datatables) [![Build Status](https://travis-ci.org/space-bar/ngx-datatables.svg?branch=master)](https://travis-ci.org/space-bar/ngx-datatables)
 ----
 
 > Angular DataTable library based on the popular jQuery [DataTables](https://datatables.net/)

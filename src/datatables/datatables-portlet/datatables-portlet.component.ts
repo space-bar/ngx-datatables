@@ -156,8 +156,9 @@ export class DatatablesPortletComponent implements OnInit, AfterViewInit, AfterC
     const $filterPanel = $(this.filterPanelElementRef.nativeElement);
     const $filterBtnIcon = $filterBtn.find('i:last');
     const onclickFilter = (e) => {
-      if (e)
+      if (e) {
         e.preventDefault();
+      }
       if (e ? $filterPanel.is(':visible') : !$filterPanel.is(':visible')) {
         $filterBtn.removeClass('active').addClass('btn-outline');
         $filterPanel.slideUp(200);
