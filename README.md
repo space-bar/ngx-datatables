@@ -1,6 +1,8 @@
 
-# ngx-datatables  [![NPM version](https://badge.fury.io/js/ngx-datatables.svg)](https://npmjs.org/package/@spacebar/ngx-datatables) [![Build Status](https://travis-ci.org/space-bar/ngx-datatables.svg?branch=master)](https://travis-ci.org/space-bar/ngx-datatables)
+# ngx-datatables  
 ----
+[![NPM version](https://badge.fury.io/js/ngx-datatables.svg)](https://npmjs.org/package/@spacebar/ngx-datatables) [![Build Status](https://travis-ci.org/space-bar/ngx-datatables.svg?branch=master)](https://travis-ci.org/space-bar/ngx-datatables)
+
 
 > Angular DataTable library based on the popular jQuery [DataTables](https://datatables.net/)
 
@@ -313,6 +315,45 @@ export class AppModule {
       </ng-template>
 </ngx-datatables-column>
 ```
+## Captions and Filters
+Introducting the ngx-datatables-portlet which is 
+## Know Issues
+> Go ahead give it a spin.
+> At this point programs do what they do best... GO SOUTH
+
+```$xslt
+ Cannot find namespace 'DataTables'
+ Cannot find name '$'
+```
+> Check tsconfig.json
+```$xslt
+{
+  ...
+  "compilerOptions": {
+     ... 
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    ...
+  }
+}
+```
+> Check src/tsconfig.app.json 
+> Either add "datatables.net" and "jquery" to types or remove the types property completely to trigger automatic types detection. [see](http://www.typescriptlang.org/docs/handbook/tsconfig-json.html)
+
+```$xslt
+ {
+   "extends": "../tsconfig.json",
+   ...
+     "types": [
+       "node",
+       "datatables.net",
+       "jquery"
+     ]
+   },
+  ...
+ }
+```
 
 ## Contributing
 > 
@@ -326,7 +367,7 @@ export class AppModule {
 > 
   1. ngx-datatables-portlet (container for ngx-datatable)
   2. Zero Configuration (using directives)
-  2. Site documentation on full functionality
+  2. Demo sample code on full functionality
   3. Travis CI 
 
 ## Work still in progress
