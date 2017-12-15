@@ -5,13 +5,15 @@ import {DatatablesTemplateComponent} from './datatables-template/datatables-temp
 import {DatatablesPortletComponent} from './datatables-portlet/datatables-portlet.component';
 import {DatatablesTemplateDirective} from './datatables-template/datatables-template.directive';
 import {DatatablesComponent} from './datatables/datatables.component';
+import {DatatablesDirective} from './datatables/datatables.directive';
 
 const components = [
   DatatablesColumnComponent,
   DatatablesPortletComponent,
   DatatablesTemplateComponent,
   DatatablesTemplateDirective,
-  DatatablesComponent
+  DatatablesComponent,
+  DatatablesDirective
 ];
 
 @NgModule({
@@ -20,8 +22,7 @@ const components = [
   ],
   entryComponents: [DatatablesTemplateComponent],
   exports: [...components],
-  declarations: [...components]
+  declarations: [...components],
 })
 export class DatatablesModule {
 }
-

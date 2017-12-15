@@ -7,7 +7,10 @@
     "baseUrl": "",
     "types": [
       "jasmine",
-      "node"
+      "node",
+      "datatables.net",
+      "datatables.net-select",
+      "jquery"
     ]
   },
   "files": [

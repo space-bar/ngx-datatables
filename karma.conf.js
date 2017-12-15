@@ -28,6 +28,9 @@ module.exports = function (config) {
     logLevel: config.LOG_INFO,
     autoWatch: true,
     browsers: ['Chrome'],
-    singleRun: false
+    singleRun: false,
+    files: [
+      "node_modules/datatables.net-dt/css/jquery.dataTables.css"
+    ]
   });
 };

@@ -161,9 +161,16 @@ export class DatatablesComponent implements OnInit, OnDestroy, AfterViewInit, Af
   }
 
   private initDataTable(): void {
+    if (!$ || !$.fn || !$.fn.DataTable) {
+      console.log('DataTable not initialized properly');
+      console.log('jquery ', $ !== undefined);
+      console.log('jquery $.fn', $ && $.fn);
+      console.log('jquery $.fn', $ && $.fn && $.fn.DataTable);
+      return;
+    }
     const tableNode = this.tableElementRef.nativeElement;
-    if (!$.fn.DataTable['isDataTable'](tableNode)) {
-      $(tableNode).DataTable().destroy();
+    if ($.fn.dataTable.isDataTable(tableNode)) {
+      $(tableNode).DataTable().clear().destroy();
     }
     this.options$.columnDefs = this.initColumnDefs();
     this._dataTableApi = $(tableNode).DataTable(this.options$);
@@ -276,11 +283,11 @@ export class DatatablesComponent implements OnInit, OnDestroy, AfterViewInit, Af
   }
 
   private buildTemplateComponent() {
-    this.templateViewContainerRef.clear();
-    const rendererComponentFactory = this.componentFactoryResolver.resolveComponentFactory(DatatablesTemplateComponent);
-    this.datatablesTemplateComponent = this.templateViewContainerRef.createComponent(rendererComponentFactory).instance;
-    this.datatablesTemplateComponent.columns = this.columns;
-    this.datatablesTemplateComponent.data = this.data;
+      this.templateViewContainerRef.clear();
+      const rendererComponentFactory = this.componentFactoryResolver.resolveComponentFactory(DatatablesTemplateComponent);
+      this.datatablesTemplateComponent = this.templateViewContainerRef.createComponent(rendererComponentFactory).instance;
+      this.datatablesTemplateComponent.columns = this.columns;
+      this.datatablesTemplateComponent.data = this.data;
   }
 
 
