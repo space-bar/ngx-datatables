@@ -50,8 +50,8 @@ describe('DatatablesComponent', () => {
       <table class="display">
         <thead>
         <tr>
-          <th>Rolw</th>
           <th>Name</th>
+          <th>Role</th>
         </tr>
         </thead>
       </table>
