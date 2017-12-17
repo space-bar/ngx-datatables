@@ -1,10 +1,21 @@
-import { Directive } from '@angular/core';
+import {Directive, ElementRef, Input} from '@angular/core';
+import {Datatables} from "./datatables";
 
 @Directive({
   selector: '[ngxDatatables]'
 })
-export class DatatablesDirective {
+export class DatatablesDirective extends Datatables {
 
-  constructor() { }
+  @Input()
+  data: Object[];
 
+  @Input()
+  ajax: string | DataTables.AjaxSettings | DataTables.FunctionAjax;
+
+  @Input()
+  options: DataTables.Settings;
+
+  constructor(private elementRef: ElementRef) {
+    super(elementRef);
+  }
 }

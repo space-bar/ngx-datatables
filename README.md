@@ -73,6 +73,126 @@ export class AppModule {
 }
 
 ```
+####  Zero Configuration
+
+> Using ngxDatatables Directive
+
+```
+@Component({
+  template: `
+    <table class="display" ngxDatatables>
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Job Role</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr>
+        <td>Tiger Nixon</td>
+        <td>System Architect</td>
+      </tr>
+      <tr>
+        <td>Garrett Winters</td>
+        <td>Accountant</td>
+      </tr>
+      <tr>
+        <td>Ashton Cox</td>
+        <td>Junior Technical Author</td>
+      </tr>
+      </tbody>
+    </table>
+  `
+})
+export class ZeroConfiguration {
+}
+
+
+@Component({
+  template: `
+      <table class="display" [data]="data"  ngxDatatables>
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>Job Role</th>
+        </tr>
+        </thead>
+      </table>`
+})
+export class ZeroConfiguration {
+  data: Object[]=[
+    ['Tiger Nixon', 'System Architect'],
+    ['Garrett Winters', 'Accountant'],
+    ['Ashton Cox', 'Junior Technical Author'],
+    ['Cedric Kelly', 'Senior Javascript Developer'],
+    ['Airi Satou', 'Accountant', 'Tokyo']
+  ];
+}
+
+```
+> Using ngx-datatables Component
+
+```
+
+@Component({
+  template: `
+   <ngx-datatables [data]="data">
+    <table class="display">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Job Role</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr>
+        <td>Tiger Nixon</td>
+        <td>System Architect</td>
+      </tr>
+      <tr>
+        <td>Garrett Winters</td>
+        <td>Accountant</td>
+      </tr>
+      <tr>
+        <td>Ashton Cox</td>
+        <td>Junior Technical Author</td>
+      </tr>
+      </tbody>
+    </table>
+    </ngx-datatables>
+  `
+})
+export class ZeroConfiguration {
+}
+
+
+@Component({
+  template: `
+    <ngx-datatables [data]="data" tableClass="display">
+      <table>
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>Job Role</th>
+        </tr>
+        </thead>
+      </table>
+    </ngx-datatables>`
+})
+export class ZeroConfiguration {
+  data: Object[]=[
+    ['Tiger Nixon', 'System Architect'],
+    ['Garrett Winters', 'Accountant'],
+    ['Ashton Cox', 'Junior Technical Author'],
+    ['Cedric Kelly', 'Senior Javascript Developer'],
+    ['Airi Satou', 'Accountant', 'Tokyo']
+  ];
+}
+
+```
+
 
 ####  Javascript sourced data
 
@@ -91,7 +211,6 @@ export class AppModule {
  
  export class SampleComponent {
   data: Object[];
-  
   constructor() {
     this.data = [
       ["Tiger Nixon", "System Architect", "Edinburgh", "5421", "2011/04/25", "$320,800"],
@@ -366,9 +485,9 @@ Introducting the ngx-datatables-portlet which is
 ## TODO
 > 
   1. ngx-datatables-portlet (container for ngx-datatable)
-  2. Zero Configuration (using directives)
-  2. Demo sample code on full functionality
-  3. Travis CI 
+  2. ~~Zero Configuration (using directives)~~
+  3. Demo sample code on full functionality
+  4. Travis CI 
 
 ## Work still in progress
 

@@ -1,4 +1,4 @@
-<div class="table-container datatable-container {{containerClass}}">
+<div class="table-container datatable-container {{containerClass}}" *ngIf="columns.length; else datatTablesTemplate">
 
   <table class="{{tableClass}}" #tableElement>
     <thead>
@@ -36,3 +36,7 @@
   </ng-container>
 
 </div>
+
+<ng-template #datatTablesTemplate>
+  <ng-content select="table"></ng-content>
+</ng-template>

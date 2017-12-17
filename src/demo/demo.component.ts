@@ -1,11 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: 'ngx-datatables-demo',
+  templateUrl: './demo.component.html',
+  styleUrls: ['./demo.component.css']
 })
-export class AppComponent implements OnInit {
+export class DemoComponent implements OnInit {
+
   title= 'app';
   data: Object[];
   ajax: DataTables.FunctionAjax;
@@ -73,4 +74,5 @@ export class AppComponent implements OnInit {
     console.log($event);
     console.log($implicitData);
   }
+
 }
