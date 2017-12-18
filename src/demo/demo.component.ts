@@ -30,34 +30,29 @@ export class DemoComponent implements OnInit {
       {field: 'color', header: 'Color', name: '$170,750', job: 'System Architect'}
     ];
     let x = 1;
+    let t;
     this.ajax = (data: any, callback, settings) => {
-      //let this_ = this;
-      console.log(settings);
-      setTimeout(() => {
+      if (t) {
+        clearTimeout(t);
+      }
+       t = setTimeout(() => {
         x++;
-        const d = Array.of(...this.data);
-        d.forEach((row) => {
+        // const d = Array.of(...this.data);
+        /*d.forEach((row) => {
           row['field'] = 0;
-        });
-        //this.ajaxDataListener.next(v);
+        });*/
         callback({
           'draw': data.draw,
-          'recordsTotal': 57,
-          'recordsFiltered': 57,
-          data: x % 2 < 2 ? this.data : cc
+          'recordsTotal': 4,
+          'recordsFiltered': 4,
+          data: this.data
         });
       }, 200);
     };
 
     this.options = {
-      ajax: this.ajax,
-      'columns': [
-        {'data': 'field'},
-        {'data': 'job'},
-        {'data': 'job'},
-        {'data': 'job'},
-        {'data': 'job'}
-      ]
+      ajax: this.ajax
+
     };
     const c = [
       ['Tiger Nixon', 'System Architect', 'Edinburgh', '5421', '2011/04/25', '$320,800'],

@@ -10,7 +10,8 @@ import {
 } from '@angular/core';
 import {DatatablesColumnComponent} from '../datatables-column/datatables-column.component';
 import {DatatablesTemplateComponent} from '../datatables-template/datatables-template.component';
-import {Datatables} from "./datatables";
+import {Datatables} from './datatables';
+import {applySourceSpanToExpressionIfNeeded} from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'ngx-datatables',
@@ -41,6 +42,9 @@ export class DatatablesComponent extends Datatables {
   @Input()
   options: DataTables.Settings;
 
+  @ViewChild('tableElement')
+  protected tableElementRef: ElementRef;
+
   @ViewChild(DatatablesTemplateComponent)
   private datatablesTemplateComponent: DatatablesTemplateComponent;
 
@@ -59,7 +63,6 @@ export class DatatablesComponent extends Datatables {
   ngOnInit() {
     this.dataListener.subscribe((data) => {
       if (data && data.length) {
-        //this.data = data;
         this.buildTemplateComponent();
       }
     });
@@ -70,8 +73,8 @@ export class DatatablesComponent extends Datatables {
    * callback on view initialization
    */
   ngAfterViewInit(): void {
-    if (!this.columns.length) {
-      this.tableElementRef = new ElementRef($(this.elementRef.nativeElement).find("table:first").get(0));
+    if (!this.columns || !this.columns.length) {
+      this.tableElementRef = new ElementRef($(this.elementRef.nativeElement).find('table:first').get(0));
     }
     super.ngAfterViewInit();
   }
@@ -118,7 +121,8 @@ export class DatatablesComponent extends Datatables {
   /**
    * Overriding and merging DataTables columns(options) and ngx-datatables-column settings.
    * Note that user defined columns and columnDefs options overrides ngx-datatables-column settings
-   * However if columnDefs or columns must be used fully used, consider using a no ngx-datatables-column ngx-datatables or ngxDatatables Direcetive
+   * However if columnDefs or columns must be used fully used, consider using a no ngx-datatables-column
+   * ngx-datatables or ngxDatatables Direcetive
    * @returns {DataTables.ColumnDefsSettings[]}
    */
   private initColumnDefs(): DataTables.ColumnDefsSettings[] {
@@ -126,7 +130,7 @@ export class DatatablesComponent extends Datatables {
     if (this.columns) {
       this.columns.forEach((col, index, cols) => {
         const columnDef = col.buildColumnDefs();
-        //const columnDef: DataTables.ColumnDefsSettings = Object.assign(<DataTables.ColumnDefsSettings>{targets: index}, col);
+        // const columnDef: DataTables.ColumnDefsSettings = Object.assign(<DataTables.ColumnDefsSettings>{targets: index}, col);
         columnDef.targets = index;
         if (col.rowSelector) {
           this.buildRowSelectorColumn(columnDef);
@@ -141,25 +145,27 @@ export class DatatablesComponent extends Datatables {
   /*******  PRIVATE DOM MANIPULATION AND DYNAMIC RENDERING FUNCTIONS *******/
 
   private renderDirtyData() {
-    if (this.dirtyData && this.datatablesTemplateComponent) {
+    if (this.dirtyData) {
       this.dirtyData = false;
-      $('tr', this.datatablesTemplateComponent.nativeElement).each((index, tr) => {
-        $('td span', tr).each((cellIndex, td) => {
-          const paramIndexes = td.id.split('_');
-          if (paramIndexes.length > 3) {
-            const row = paramIndexes[3];
-            const col = paramIndexes[2];
-            if (!isNaN(parseInt(row, 10)) && !isNaN(parseInt(row, 10))) {
-              const cell = this.dataTableApi.cell(row, col);
-              if (cell) {
-                const $cell = $(cell.node());
-                $cell.empty();
-                $cell.append(td);
+      if (this.datatablesTemplateComponent) {
+        $('tr', this.datatablesTemplateComponent.nativeElement).each((index, tr) => {
+          $('td span', tr).each((cellIndex, td) => {
+            const paramIndexes = td.id.split('_');
+            if (paramIndexes.length > 3) {
+              const row = paramIndexes[3];
+              const col = paramIndexes[2];
+              if (!isNaN(parseInt(row, 10)) && !isNaN(parseInt(row, 10))) {
+                const cell = this.dataTableApi.cell(row, col);
+                if (cell) {
+                  const $cell = $(cell.node());
+                  $cell.empty();
+                  $cell.append(td);
+                }
               }
             }
-          }
+          });
         });
-      });
+      }
     }
   }
 
@@ -211,7 +217,9 @@ export class DatatablesComponent extends Datatables {
    * @param {number} end
    * @param {any[]} display
    */
-  protected onHeaderCallbackEvent(thead: Node, data: any[], start: number, end: number, display: any[]) {
+  protected;
+
+  onHeaderCallbackEvent(thead: Node, data: any[], start: number, end: number, display: any[]) {
     this.initColumnHeader(thead);
   }
 }

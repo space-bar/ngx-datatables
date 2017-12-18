@@ -1,10 +1,12 @@
-import {AfterViewChecked, AfterViewInit, ElementRef, OnChanges, OnDestroy, OnInit, SimpleChanges} from "@angular/core";
-import {Subject} from "rxjs/Subject";
-import {Observer} from "rxjs/Observer";
-import {Observable} from "rxjs/Observable";
-import {Subscription} from "rxjs/Subscription";
+import {AfterViewChecked, AfterViewInit, ElementRef, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
+import {Subject} from 'rxjs/Subject';
+import {Observer} from 'rxjs/Observer';
+import {Observable} from 'rxjs/Observable';
+import {Subscription} from 'rxjs/Subscription';
+import AjaxSettings = DataTables.AjaxSettings;
+import {applySourceSpanToExpressionIfNeeded} from '@angular/compiler/src/output/output_ast';
 
-export abstract class Datatables implements OnInit, OnDestroy, AfterViewInit, AfterViewChecked, OnChanges{
+export abstract class Datatables implements OnInit, OnDestroy, AfterViewInit, AfterViewChecked, OnChanges {
 
   selectionMode = 'multiple';
 
@@ -128,7 +130,7 @@ export abstract class Datatables implements OnInit, OnDestroy, AfterViewInit, Af
 
     this.options$.serverSide = (this.options$.ajax &&
       (typeof this.options$.ajax === 'string' || this.options$.ajax['url'] || $.isFunction(this.options$.ajax)));
-    this.options$.data = this.options$.serverSide ? null : [];
+    this.options$.data = this.options$.serverSide ? null : this.data;
   }
 
   /**
@@ -144,14 +146,15 @@ export abstract class Datatables implements OnInit, OnDestroy, AfterViewInit, Af
     }
     const tableNode = this.tableElementRef.nativeElement;
     if ($.fn.dataTable.isDataTable(tableNode)) {
-      $(tableNode).DataTable().clear().destroy();
+      $(tableNode).DataTable().destroy();
     }
+    const staticData = this.options$.serverSide ? this.data : null;
     this._dataTableApi = $(tableNode).DataTable(this.options$);
-    if (this.data && !this.options$.serverSide) {
+    /*if (staticData) {
       setTimeout(() => {
-        this._dataTableApi.rows.add(this.data).draw();
+        this._dataTableApi.rows.add(staticData).draw();
       }, 200);
-    }
+    }*/
   }
 
 

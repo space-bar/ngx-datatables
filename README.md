@@ -137,7 +137,7 @@ export class ZeroConfiguration {
 
 @Component({
   template: `
-   <ngx-datatables [data]="data">
+   <ngx-datatables>
     <table class="display">
       <thead>
       <tr>
@@ -170,8 +170,8 @@ export class ZeroConfiguration {
 
 @Component({
   template: `
-    <ngx-datatables [data]="data" tableClass="display">
-      <table>
+    <ngx-datatables [data]="data">
+      <table class="display">
         <thead>
         <tr>
           <th>Name</th>
