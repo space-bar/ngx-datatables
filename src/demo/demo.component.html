@@ -34,17 +34,18 @@
 
 </ngx-datatables-portlet>
 
-<ngx-datatables [options]="options">
+<ngx-datatables [options]="options" tableClass="display">
 
 
-  <ngx-datatables-column header="User Role" field="job">
+  <ngx-datatables-column header="User Role" field="field">
 
   </ngx-datatables-column>
+  <ngx-datatables-column header="Header" field="header">
+
+  </ngx-datatables-column>
+  <ngx-datatables-column header="Name" field="name">
+  </ngx-datatables-column>
+
   <ngx-datatables-column header="Job" field="job">
-
   </ngx-datatables-column>
-  <ngx-datatables-column header="Type" field="job">
-  </ngx-datatables-column>
-
-
 </ngx-datatables>

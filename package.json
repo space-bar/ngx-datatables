@@ -1,6 +1,6 @@
 {
   "name": "@spacebar/ngx-datatables",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "license": "MIT",
   "author": "Oluwaseun Ogunjimi <seun.ogunjimi@gmail.com>",
   "description": "ngx-datatables is a Angular2+ component library based on the popular jQuery DataTables.",

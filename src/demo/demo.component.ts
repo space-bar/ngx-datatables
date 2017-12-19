@@ -7,7 +7,7 @@ import {Component, OnInit} from '@angular/core';
 })
 export class DemoComponent implements OnInit {
 
-  title= 'app';
+  title = 'app';
   data: Object[];
   ajax: DataTables.FunctionAjax;
   options: DataTables.Settings;
@@ -29,30 +29,36 @@ export class DemoComponent implements OnInit {
       {field: 'color', header: 'Color', name: '$170,750', job: 'System Architect'},
       {field: 'color', header: 'Color', name: '$170,750', job: 'System Architect'}
     ];
-    let x = 1;
+
     let t;
     this.ajax = (data: any, callback, settings) => {
       if (t) {
         clearTimeout(t);
       }
-       t = setTimeout(() => {
-        x++;
-        // const d = Array.of(...this.data);
-        /*d.forEach((row) => {
-          row['field'] = 0;
-        });*/
+      t = setTimeout(() => {
+        const d = Array.of(...this.data);
+        d.forEach((row, index) => {
+          row['field'] = index + data.start;
+        });
+
         callback({
           'draw': data.draw,
-          'recordsTotal': 4,
-          'recordsFiltered': 4,
-          data: this.data
+          'recordsTotal': 50,
+          'recordsFiltered': 50,
+          data: d
         });
       }, 200);
     };
 
     this.options = {
-      ajax: this.ajax
-
+      ajax: this.ajax,
+      processing:true,
+      'columns': [
+        {'data': 'field'},
+        {'data': 'header'},
+        {'data': 'name'},
+        {'data': 'name'}
+      ]
     };
     const c = [
       ['Tiger Nixon', 'System Architect', 'Edinburgh', '5421', '2011/04/25', '$320,800'],

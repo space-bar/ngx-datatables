@@ -3,8 +3,6 @@ import {Subject} from 'rxjs/Subject';
 import {Observer} from 'rxjs/Observer';
 import {Observable} from 'rxjs/Observable';
 import {Subscription} from 'rxjs/Subscription';
-import AjaxSettings = DataTables.AjaxSettings;
-import {applySourceSpanToExpressionIfNeeded} from '@angular/compiler/src/output/output_ast';
 
 export abstract class Datatables implements OnInit, OnDestroy, AfterViewInit, AfterViewChecked, OnChanges {
 
@@ -31,27 +29,27 @@ export abstract class Datatables implements OnInit, OnDestroy, AfterViewInit, Af
 
   private PRIVATE_SETTINGS = {
     initComplete: (settings: DataTables.SettingsLegacy, json: Object) => {
-      this.initListener.next(json);
+      this.onInitComplete(settings, json);
       if (this.options && $.isFunction(this.options.initComplete)) {
         this.options.initComplete.call(this.dataTableApi, settings, json);
       }
     },
     headerCallback: (thead: Node, data: any[], start: number, end: number, display: any[]) => {
-      this.onHeaderCallbackEvent(thead, data, start, end, display);
-      if (this.options && $.isFunction(this.options.initComplete)) {
-        this.options.initComplete.call(this.dataTableApi, thead, data, start, end, display);
+      this.onHeaderCallback(thead, data, start, end, display);
+      if (this.options && $.isFunction(this.options.headerCallback)) {
+        this.options.headerCallback.call(this.dataTableApi, thead, data, start, end, display);
       }
     },
     drawCallback: (settings: DataTables.SettingsLegacy) => {
-      this.onDrawCallbackEvent(settings);
-      if (this.options && $.isFunction(this.options.initComplete)) {
-        this.options.initComplete.call(this.dataTableApi, settings);
+      this.onDrawCallback(settings);
+      if (this.options && $.isFunction(this.options.drawCallback)) {
+        this.options.drawCallback.call(this.dataTableApi, settings);
       }
     },
     preDrawCallback: (settings: DataTables.SettingsLegacy) => {
-      this.onPreDrawCallbackEvent(settings);
-      if (this.options && $.isFunction(this.options.initComplete)) {
-        this.options.initComplete.call(this.dataTableApi, settings);
+      this.onPreDrawCallback(settings);
+      if (this.options && $.isFunction(this.options.preDrawCallback)) {
+        this.options.preDrawCallback.call(this.dataTableApi, settings);
       }
     }
   };
@@ -66,23 +64,20 @@ export abstract class Datatables implements OnInit, OnDestroy, AfterViewInit, Af
    * callback on pre-construct of class
    */
   ngOnInit() {
-    this.dataListener.subscribe((data) => {
+    this.dataListener.subscribe((currentData) => {
       this.dirtyData = true;
-      if (data && data.length) {
-        this.data = data;
-      }
     });
     if ($.fn.dataTable && $.fn.dataTable.ext) {
       $.fn.dataTable.ext.errMode = 'throw';
     }
-    this.init();
+    this.initOptions();
   }
 
   /**
    * callback on view initialization
    */
   ngAfterViewInit(): void {
-    this.initDataTable();
+    this.buildDataTable();
   }
 
   /**
@@ -99,8 +94,8 @@ export abstract class Datatables implements OnInit, OnDestroy, AfterViewInit, Af
     this.dataListener.next(null);
     for (const propName in changes) {
       if (!changes[propName].firstChange) {
-        this.init();
-        this.initDataTable();
+        this.initOptions();
+        this.buildDataTable();
         break;
       }
     }
@@ -123,7 +118,7 @@ export abstract class Datatables implements OnInit, OnDestroy, AfterViewInit, Af
   /**
    * initialization and merging of input attributes
    */
-  protected init() {
+  protected initOptions() {
     this.options$ = {ajax: typeof this.ajax === 'string' ? {url: this.ajax} : this.ajax};
     this.options$ = $.extend(true, this.options$, this.options || {});
     this.options$ = $.extend(true, this.options$, this.PRIVATE_SETTINGS);
@@ -136,7 +131,7 @@ export abstract class Datatables implements OnInit, OnDestroy, AfterViewInit, Af
   /**
    * DataTables new instance initialization
    */
-  private initDataTable(): void {
+  protected buildDataTable(): void {
     if (!$ || !$.fn || !$.fn.DataTable) {
       console.log('DataTable not initialized properly');
       console.log('jquery ', $ !== undefined);
@@ -160,18 +155,22 @@ export abstract class Datatables implements OnInit, OnDestroy, AfterViewInit, Af
 
   /*******  PROTECTED CALLBACK FUNCTIONS *******/
 
+  protected onInitComplete(settings: DataTables.SettingsLegacy, json: Object) {
+    this.initListener.next(json);
+  }
+
   /**
    * Event callback before DataTables Draw occurs
    * @param {DataTables.SettingsLegacy} settings
    */
-  protected onPreDrawCallbackEvent(settings: DataTables.SettingsLegacy) {
+  protected onPreDrawCallback(settings: DataTables.SettingsLegacy) {
   }
 
   /**
    * Event callback DataTables Draw
    * @param {DataTables.SettingsLegacy} settings
    */
-  protected onDrawCallbackEvent(settings: DataTables.SettingsLegacy) {
+  protected onDrawCallback(settings: DataTables.SettingsLegacy) {
     const data = this.currentData();
     this.dataListener.next(data);
   }
@@ -184,7 +183,7 @@ export abstract class Datatables implements OnInit, OnDestroy, AfterViewInit, Af
    * @param {number} end
    * @param {any[]} display
    */
-  protected onHeaderCallbackEvent(thead: Node, data: any[], start: number, end: number, display: any[]) {
+  protected onHeaderCallback(thead: Node, data: any[], start: number, end: number, display: any[]) {
   }
 
   /*******  PRIVATE UTIL FUNCTIONS *******/

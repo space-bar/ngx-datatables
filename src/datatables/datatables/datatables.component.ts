@@ -61,9 +61,9 @@ export class DatatablesComponent extends Datatables {
    * callback on pre-construct of class
    */
   ngOnInit() {
-    this.dataListener.subscribe((data) => {
-      if (data && data.length) {
-        this.buildTemplateComponent();
+    this.dataListener.subscribe((currentData) => {
+      if (currentData && currentData.length) {
+        this.buildTemplateComponent(currentData);
       }
     });
     super.ngOnInit();
@@ -85,17 +85,17 @@ export class DatatablesComponent extends Datatables {
    */
   ngAfterViewChecked(): void {
     this.renderDirtyData();
-    super.ngAfterViewInit();
+    super.ngAfterViewChecked();
   }
 
   /******* PRIVATE DATATABLES INIT FUNCTIONS *******/
 
   /**
-   * initialization and merging of input attributes
+   * DataTables new instance initialization
    */
-  protected init() {
-    super.init();
+  protected buildDataTable(): void {
     this.options$.columnDefs = this.initColumnDefs();
+    super.buildDataTable();
   }
 
   /**
@@ -197,13 +197,13 @@ export class DatatablesComponent extends Datatables {
   /**
    * Dynamic building and rendering of custom Column Components using ngxDataTablesTemplate
    */
-  private buildTemplateComponent() {
+  private buildTemplateComponent(currentData) {
     if (this.templateViewContainerRef) {
       this.templateViewContainerRef.clear();
       const rendererComponentFactory = this.componentFactoryResolver.resolveComponentFactory(DatatablesTemplateComponent);
       this.datatablesTemplateComponent = this.templateViewContainerRef.createComponent(rendererComponentFactory).instance;
       this.datatablesTemplateComponent.columns = this.columns;
-      this.datatablesTemplateComponent.data = this.data;
+      this.datatablesTemplateComponent.data = currentData;
     }
   }
 
@@ -217,9 +217,7 @@ export class DatatablesComponent extends Datatables {
    * @param {number} end
    * @param {any[]} display
    */
-  protected;
-
-  onHeaderCallbackEvent(thead: Node, data: any[], start: number, end: number, display: any[]) {
+  protected onHeaderCallback(thead: Node, data: any[], start: number, end: number, display: any[]) {
     this.initColumnHeader(thead);
   }
 }
