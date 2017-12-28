@@ -202,8 +202,7 @@ export class DatatablesComponent extends Datatables {
       this.templateViewContainerRef.clear();
       const rendererComponentFactory = this.componentFactoryResolver.resolveComponentFactory(DatatablesTemplateComponent);
       this.datatablesTemplateComponent = this.templateViewContainerRef.createComponent(rendererComponentFactory).instance;
-      this.datatablesTemplateComponent.columns = this.columns;
-      this.datatablesTemplateComponent.data = currentData;
+      this.datatablesTemplateComponent.updateParameters(currentData, this.columns);
     }
   }
 

@@ -1,11 +1,9 @@
 import {
+  ChangeDetectorRef,
   Component,
-  ComponentFactoryResolver,
   ElementRef,
   Input,
-  OnInit,
   QueryList,
-  ViewContainerRef
 } from '@angular/core';
 import {DatatablesColumnComponent} from '../datatables-column/datatables-column.component';
 
@@ -14,7 +12,7 @@ import {DatatablesColumnComponent} from '../datatables-column/datatables-column.
   templateUrl: './datatables-template.component.html',
   styleUrls: ['./datatables-template.component.css']
 })
-export class DatatablesTemplateComponent implements OnInit {
+export class DatatablesTemplateComponent {
 
   @Input()
   columns: QueryList<DatatablesColumnComponent>;
@@ -22,24 +20,17 @@ export class DatatablesTemplateComponent implements OnInit {
   @Input()
   data: Object[];
 
-  constructor(private elementRef: ElementRef, private viewContainerRef: ViewContainerRef,
-              private componentFactoryResolver: ComponentFactoryResolver) {
-  }
-
-  ngOnInit() {
+  constructor(private elementRef: ElementRef, private changeDetectorRef: ChangeDetectorRef) {
   }
 
   get nativeElement() {
     return this.elementRef.nativeElement;
   }
 
-  private buildTemplateComponent(data: Object[], columns?: QueryList<DatatablesColumnComponent>): DatatablesTemplateComponent {
-    this.viewContainerRef.clear();
-    const rendererComponentFactory = this.componentFactoryResolver.resolveComponentFactory(DatatablesTemplateComponent);
-    const datatablesTemplateComponent =
-      <DatatablesTemplateComponent>this.viewContainerRef.createComponent(rendererComponentFactory).instance;
-    datatablesTemplateComponent.columns = columns;
-    datatablesTemplateComponent.data = data;
-    return datatablesTemplateComponent;
+  updateParameters(data: Object[], columns?: QueryList<DatatablesColumnComponent>) {
+    this.data = data;
+    this.columns = columns || this.columns;
+    this.changeDetectorRef.detectChanges();
   }
+
 }
