@@ -2,7 +2,7 @@
 // https://karma-runner.github.io/0.13/config/configuration-file.html
 
 module.exports = function (config) {
-  config.set({
+  var configuration = {
     basePath: '',
     frameworks: ['jasmine', '@angular/cli'],
     plugins: [
@@ -12,17 +12,11 @@ module.exports = function (config) {
       require('karma-coverage-istanbul-reporter'),
       require('@angular/cli/plugins/karma')
     ],
-    customLaunchers: {
-      Chrome_travis_ci: {
-        base: 'Chrome',
-        flags: ['--no-sandbox']
-      }
-    },
-    client:{
+    client: {
       clearContext: false // leave Jasmine Spec Runner output visible in browser
     },
     coverageIstanbulReporter: {
-      reports: [ 'html', 'lcovonly' ],
+      reports: ['html', 'lcovonly'],
       fixWebpackSourcePaths: true
     },
     angularCli: {
@@ -33,10 +27,27 @@ module.exports = function (config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: process.env.TRAVIS?['Chrome_travis_ci']:['Chrome'],
+    browsers: ['Chrome'],
     singleRun: false,
     files: [
       "node_modules/datatables.net-dt/css/jquery.dataTables.css"
     ]
-  });
+  };
+  if (process.env.TRAVIS) {
+    var travisConfig = {
+      customLaunchers: {
+        Chrome_travis_ci: {
+          base: 'Chrome',
+          flags: ['--no-sandbox']
+        }
+      },
+      autoWatch: true,
+      browsers: ['Chrome_travis_ci'],
+      singleRun: true
+    };
+    for (var attr in travisConfig) {
+      configuration[attr] = travisConfig[attr];
+    }
+  }
+  config.set(configuration);
 };
