@@ -8,7 +8,7 @@
   <meta name="MobileOptimized" content="320">
   <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-  <title>ngx-datatable Documentation</title>
+  <title>ngx-datatables Documentation</title>
 
   <link href="https://fonts.googleapis.com/css?family=Raleway:700,300" rel="stylesheet" type="text/css">
   <link rel="stylesheet" href="./css/style.css">
@@ -22,9 +22,393 @@
 
   <header>
     <div class="container">
-      <h2 class="lone-header">ngx-datatable Documentation [ Demo ]</h2>
+      <h2 class="lone-header"> ngx-datatables Documentation [ Demo ]</h2>
     </div>
   </header>
+
+  <section>
+    <div class="container">
+      <ul class="docs-nav fixed" style="top: 49px;">
+        <li><strong>Getting Started</strong></li>
+        <li><a href="#installation" class="cc-active active">Installation</a></li>
+        <li><a href="#features" class="cc-active">Features</a></li>
+        <li><a href="#change-log" class="cc-active">Change Log</a></li>
+        <li><a href="#license" class="cc-active">License</a></li>
+        <li class="separator"></li>
+        <li><strong>Basic Usage</strong></li>
+        <li><a href="#view_type" class="cc-active">Zero Configuration</a></li>
+        <li><a href="#animation_style" class="cc-active">Using Options</a></li>
+        <li><a href="#bars_text" class="cc-active">Client Side</a></li>
+        <li><a href="#vote_counter" class="cc-active">Server Side</a></li>
+        <li class="separator"></li>
+        <li><strong>Advanced Usage</strong></li>
+        <li><a href="#view_type" class="cc-active">Row Selection</a></li>
+        <li><a href="#animation_style" class="cc-active">Custom Cell Template</a></li>
+        <li><a href="#bars_text" class="cc-active">Portlet</a></li>
+        <li><a href="#vote_counter" class="cc-active">Portlet Tools</a></li>
+        <li><a href="#vote_counter" class="cc-active">Filtering</a></li>
+        <li><a href="#vote_counter" class="cc-active">Themes</a></li>
+        <li class="separator"></li>
+        <li><strong>Portlet</strong></li>
+        <li><a href="#view_type" class="cc-active">Row Selection</a></li>
+        <li><a href="#animation_style" class="cc-active">Custom Cell Template</a></li>
+        <li><a href="#bars_text" class="cc-active">Client Side</a></li>
+        <li><a href="#vote_counter" class="cc-active">Server Side</a></li>
+        <li class="separator"></li>
+        <li><strong>API</strong></li>
+        <li><a href="#view_type" class="cc-active">Component/Directive</a></li>
+        <li><a href="#view_type" class="cc-active">Native Datatables</a></li>
+        <li class="separator"></li>
+        <li><strong>Demo</strong></li>
+        <li><a href="#view_type" class="cc-active">Basic</a></li>
+        <li class="separator"></li>
+        <li><strong>Contributing</strong></li>
+        <li><a href="#bar_colors" class="cc-active">How To Contribute</a></li>
+        <li><a href="#bar_colors" class="cc-active">Building a Release</a></li>
+        <li><a href="#bar_colors" class="cc-active">Credits</a></li>
+      </ul>
+
+
+      <div class="docs-content">
+        <h2> Getting Started</h2>
+        <h3 id="welcome"> Welcome</h3>
+        <p> Are you listening to your customers?</p>
+
+        <p> As they say: You cannot improve what you cannot measure; but the paradox is you
+          cannot measure everything – happiness, hatred, anger… but you can measure customer
+          satisfaction. Yes, you can measure customer satisfaction by analyzing likes and
+          dislikes of your customers. You can gauge popularity of your website or products.
+          You can also:</p>
+        <ul>
+          <li>See how many visitors like the new design of your website or logo</li>
+          <li>Analyze what your readers want to see on your blog</li>
+          <li>Understand how helpful the content on your support forum or website is</li>
+          <li>Know the latest trends and user’s opinion before launching a new product or service</li>
+        </ul>
+        <p> Opineo allows you to do all of this and much more without signing up for an account
+          or hire an expert. This DIY tool enables you to listen to your customers’ voice
+          easily and instantly. All you have to do is go online, design your widget and place
+          it on your website. </p>
+        <h3 id="benefits"> Benefits</h3>
+        <ul>
+          <li>Use Opineo to conduct pre-release surveys before launching new products or services</li>
+          <li>Analyze new trends in the industry</li>
+          <li>Run crowd-sourced campaigns with Opineo to mature new ideas, website designs or
+            logos
+          </li>
+          <li>Conduct popularity surveys with free Opineo widget</li>
+          <li>Create and host polling surveys with Opineo</li>
+        </ul>
+        <h3 id="features"> Features</h3>
+        <ul>
+          <li>Facility to customize to match your website theme</li>
+          <li>Detailed and Compact view options</li>
+          <li>Comprehensive options to customize animation, colors, orientation and style</li>
+          <li>All the power and flexibility of jQuery</li>
+          <li>Easy install; 100% integration</li>
+          <li>Facility to customize rating icons</li>
+        </ul>
+        <h3 id="license"> License</h3>
+        <p> This Feedback Collection and Polling widget is free for personal and commercial
+          projects as long as you are providing a link back to this page. If you don’t want
+          to provide a link back, simply contribute to the development and improvement of
+          this tool. To contribute to this and many other interesting projects, go to Support
+          Efforts and become a patron.</p>
+        <hr>
+        <h2> Customizing Opineo</h2>
+        <p> Before you make any cusomization or even start using Opineo create a 'div' element
+          and assign it some id. Now add references to necessary Javascrip files e.g.</p>
+        <ul>
+          <li>A reference to latest jQuery library</li>
+          <li>A reference to Opineo script file sudo nano opineo.js</li>
+        </ul>
+        <p> The following customization options are available in Opineo:</p>
+        <h3 id="view_type"> View Type</h3>
+        <ul>
+          <li>Detailed View</li>
+        </ul>
+
+        <pre class="prettyprint prettyprinted" style=""><span class="tag">&lt;script&gt;</span><span class="pln">
+      	$</span><span class="pun">(</span><span class="pln">document</span><span class="pun">).</span><span class="pln">ready</span><span
+          class="pun">(</span><span class="kwd">function</span><span class="pln"> </span><span
+          class="pun">(){</span><span class="pln">
+        $</span><span class="pun">(</span><span class="str">'#DefaultOptions'</span><span class="pun">).</span><span
+          class="pln">opineo</span><span class="pun">(</span><span class="str">'results.php'</span><span
+          class="pun">,</span><span class="pln"> </span><span class="pun">{</span><span class="pln">curvalue</span><span
+          class="pun">:</span><span class="lit">3</span><span class="pun">,</span><span class="pln">
+            view</span><span class="pun">:</span><span class="pln"> </span><span class="str">'detailed'</span><span
+          class="pun">,</span><span class="pln">
+            animation_speed</span><span class="pun">:</span><span class="pln"> </span><span
+          class="str">'super'</span><span class="pun">,</span><span class="pln">
+            show_total_votes_counter</span><span class="pun">:</span><span class="pln"> </span><span
+          class="kwd">false</span><span class="pun">,</span><span class="pln">
+            show_overall_rating</span><span class="pun">:</span><span class="pln"> </span><span
+          class="kwd">true</span><span class="pun">});</span><span class="pln">
+         </span><span class="pun">})</span><span class="pln">
+</span><span class="tag">&lt;/script&gt;</span></pre>
+        <ul>
+          <li>Compact View</li>
+        </ul>
+        <pre class="prettyprint prettyprinted" style=""><span class="tag">&lt;script&gt;</span><span class="pln">
+	$</span><span class="pun">(</span><span class="pln">document</span><span class="pun">).</span><span
+          class="pln">ready</span><span class="pun">(</span><span class="kwd">function</span><span
+          class="pln"> </span><span class="pun">(){</span><span class="pln">
+	$</span><span class="pun">(</span><span class="str">'#CompactView'</span><span class="pun">).</span><span class="pln">opineo</span><span
+          class="pun">(</span><span class="str">'results.php'</span><span class="pun">,</span><span class="pln">
+    	    </span><span class="pun">{</span><span class="pln">curvalue</span><span class="pun">:</span><span class="lit">3</span><span
+          class="pun">,</span><span class="pln"> view</span><span class="pun">:</span><span class="pln"> </span><span
+          class="str">'compact'</span><span class="pun">,</span><span class="pln">
+    	    animation_speed</span><span class="pun">:</span><span class="pln"> </span><span
+          class="str">'super'</span><span class="pun">});</span><span class="pln">
+	</span><span class="pun">})</span><span class="pln">
+</span><span class="tag">&lt;/script&gt;</span></pre>
+        <ul>
+          <li>Mini View</li>
+        </ul>
+        <pre class="prettyprint prettyprinted" style=""><span class="tag">&lt;script&gt;</span><span class="pln">
+    $</span><span class="pun">(</span><span class="pln">document</span><span class="pun">).</span><span class="pln">ready</span><span
+          class="pun">(</span><span class="kwd">function</span><span class="pln"> </span><span
+          class="pun">(){</span><span class="pln">
+    $</span><span class="pun">(</span><span class="str">'#MiniView'</span><span class="pun">).</span><span class="pln">opineo</span><span
+          class="pun">(</span><span class="str">'results.php'</span><span class="pun">,</span><span class="pln"> </span><span
+          class="pun">{</span><span class="pln">curvalue</span><span class="pun">:</span><span class="lit">0</span><span
+          class="pun">,</span><span class="pln"> view</span><span class="pun">:</span><span class="pln"> </span><span
+          class="str">'mini'</span><span class="pun">,</span><span class="pln"> callback</span><span
+          class="pun">:</span><span class="pln"> myCallback</span><span class="pun">});</span><span class="pln">
+    </span><span class="pun">})</span><span class="pln">
+</span><span class="tag">&lt;/script&gt;</span></pre>
+        <h3 id="animation_style"> Animation Style</h3>
+        <ul>
+          <li>Slow</li>
+        </ul>
+        <pre class="prettyprint prettyprinted" style=""><span class="tag">&lt;script&gt;</span><span class="pln">
+    $</span><span class="pun">(</span><span class="pln">document</span><span class="pun">).</span><span class="pln">ready</span><span
+          class="pun">(</span><span class="kwd">function</span><span class="pln"> </span><span
+          class="pun">(){</span><span class="pln">
+    $</span><span class="pun">(</span><span class="str">'#opineo'</span><span class="pun">).</span><span class="pln">opineo</span><span
+          class="pun">(</span><span class="str">'results.php'</span><span class="pun">,</span><span class="pln"> </span><span
+          class="pun">{</span><span class="pln">curvalue</span><span class="pun">:</span><span class="lit">0</span><span
+          class="pun">,</span><span class="pln"> view</span><span class="pun">:</span><span class="pln"> </span><span
+          class="str">'mini'</span><span class="pun">,</span><span class="pln"> animation_speed</span><span class="pun">:</span><span
+          class="str">'slow'</span><span class="pun">});</span><span class="pln">
+    </span><span class="pun">})</span><span class="pln">
+</span><span class="tag">&lt;/script&gt;</span><span class="pln"> </span></pre>
+        <ul>
+          <li>Medium</li>
+        </ul>
+        <pre class="prettyprint prettyprinted" style=""><span class="tag">&lt;script&gt;</span><span class="pln">
+    $</span><span class="pun">(</span><span class="pln">document</span><span class="pun">).</span><span class="pln">ready</span><span
+          class="pun">(</span><span class="kwd">function</span><span class="pln"> </span><span
+          class="pun">(){</span><span class="pln">
+    $</span><span class="pun">(</span><span class="str">'#opineo'</span><span class="pun">).</span><span class="pln">opineo</span><span
+          class="pun">(</span><span class="str">'results.php'</span><span class="pun">,</span><span class="pln"> </span><span
+          class="pun">{</span><span class="pln">curvalue</span><span class="pun">:</span><span class="lit">0</span><span
+          class="pun">,</span><span class="pln"> view</span><span class="pun">:</span><span class="pln"> </span><span
+          class="str">'mini'</span><span class="pun">,</span><span class="pln"> animation_speed</span><span class="pun">:</span><span
+          class="str">'mild'</span><span class="pun">});</span><span class="pln">
+    </span><span class="pun">})</span><span class="pln">
+</span><span class="tag">&lt;/script&gt;</span><span class="pln"> </span></pre>
+        <ul>
+          <li>Fast</li>
+        </ul>
+        <pre class="prettyprint prettyprinted" style=""><span class="tag">&lt;script&gt;</span><span class="pln">
+    $</span><span class="pun">(</span><span class="pln">document</span><span class="pun">).</span><span class="pln">ready</span><span
+          class="pun">(</span><span class="kwd">function</span><span class="pln"> </span><span
+          class="pun">(){</span><span class="pln">
+    $</span><span class="pun">(</span><span class="str">'#opineo'</span><span class="pun">).</span><span class="pln">opineo</span><span
+          class="pun">(</span><span class="str">'results.php'</span><span class="pun">,</span><span class="pln"> </span><span
+          class="pun">{</span><span class="pln">curvalue</span><span class="pun">:</span><span class="lit">0</span><span
+          class="pun">,</span><span class="pln"> view</span><span class="pun">:</span><span class="pln"> </span><span
+          class="str">'mini'</span><span class="pun">,</span><span class="pln"> animation_speed</span><span class="pun">:</span><span
+          class="str">'fast'</span><span class="pun">});</span><span class="pln">
+    </span><span class="pun">})</span><span class="pln">
+ </span><span class="tag">&lt;/script&gt;</span></pre>
+        <ul>
+          <li>Super Fast</li>
+        </ul>
+        <pre class="prettyprint prettyprinted" style=""><span class="tag">&lt;script&gt;</span><span class="pln">
+    $</span><span class="pun">(</span><span class="pln">document</span><span class="pun">).</span><span class="pln">ready</span><span
+          class="pun">(</span><span class="kwd">function</span><span class="pln"> </span><span
+          class="pun">(){</span><span class="pln">
+    $</span><span class="pun">(</span><span class="str">'#opineo'</span><span class="pun">).</span><span class="pln">opineo</span><span
+          class="pun">(</span><span class="str">'results.php'</span><span class="pun">,</span><span class="pln"> </span><span
+          class="pun">{</span><span class="pln">curvalue</span><span class="pun">:</span><span class="lit">0</span><span
+          class="pun">,</span><span class="pln"> view</span><span class="pun">:</span><span class="pln"> </span><span
+          class="str">'mini'</span><span class="pun">,</span><span class="pln"> animation_speed</span><span class="pun">:</span><span
+          class="str">'super'</span><span class="pun">});</span><span class="pln">
+    </span><span class="pun">})</span><span class="pln">
+</span><span class="tag">&lt;/script&gt;</span></pre>
+        <ul>
+          <li>Ultra Fast</li>
+        </ul>
+        <pre class="prettyprint prettyprinted" style=""><span class="pln"> </span><span
+          class="tag">&lt;script&gt;</span><span class="pln">
+    $</span><span class="pun">(</span><span class="pln">document</span><span class="pun">).</span><span class="pln">ready</span><span
+          class="pun">(</span><span class="kwd">function</span><span class="pln"> </span><span
+          class="pun">(){</span><span class="pln">
+    $</span><span class="pun">(</span><span class="str">'#opineo'</span><span class="pun">).</span><span class="pln">opineo</span><span
+          class="pun">(</span><span class="str">'results.php'</span><span class="pun">,</span><span class="pln"> </span><span
+          class="pun">{</span><span class="pln">curvalue</span><span class="pun">:</span><span class="lit">0</span><span
+          class="pun">,</span><span class="pln"> view</span><span class="pun">:</span><span class="pln"> </span><span
+          class="str">'mini'</span><span class="pun">,</span><span class="pln"> animation_speed</span><span class="pun">:</span><span
+          class="str">'ultra fast'</span><span class="pun">});</span><span class="pln">
+    </span><span class="pun">})</span><span class="pln">
+</span><span class="tag">&lt;/script&gt;</span><span class="pln"> </span></pre>
+        <h3 id="bars_text"> Bars Text</h3>
+        <ul>
+          <li>Show</li>
+        </ul>
+        <pre class="prettyprint prettyprinted" style=""><span class="tag">&lt;script&gt;</span><span class="pln">
+    $</span><span class="pun">(</span><span class="pln">document</span><span class="pun">).</span><span class="pln">ready</span><span
+          class="pun">(</span><span class="kwd">function</span><span class="pln"> </span><span
+          class="pun">(){</span><span class="pln">
+    $</span><span class="pun">(</span><span class="str">'#opineo'</span><span class="pun">).</span><span class="pln">opineo</span><span
+          class="pun">(</span><span class="str">'results.php'</span><span class="pun">,</span><span class="pln"> </span><span
+          class="pun">{</span><span class="pln">curvalue</span><span class="pun">:</span><span class="lit">0</span><span
+          class="pun">,</span><span class="pln"> view</span><span class="pun">:</span><span class="pln"> </span><span
+          class="str">'mini'</span><span class="pun">,</span><span class="pln"> votes_label</span><span
+          class="pun">:</span><span class="kwd">true</span><span class="pun">});</span><span class="pln">
+    </span><span class="pun">})</span><span class="pln">
+</span><span class="tag">&lt;/script&gt;</span></pre>
+        <ul>
+          <li>Hide</li>
+        </ul>
+        <pre class="prettyprint prettyprinted" style=""><span class="tag">&lt;script&gt;</span><span class="pln">
+    $</span><span class="pun">(</span><span class="pln">document</span><span class="pun">).</span><span class="pln">ready</span><span
+          class="pun">(</span><span class="kwd">function</span><span class="pln"> </span><span
+          class="pun">(){</span><span class="pln">
+    $</span><span class="pun">(</span><span class="str">'#opineo'</span><span class="pun">).</span><span class="pln">opineo</span><span
+          class="pun">(</span><span class="str">'results.php'</span><span class="pun">,</span><span class="pln"> </span><span
+          class="pun">{</span><span class="pln">curvalue</span><span class="pun">:</span><span class="lit">0</span><span
+          class="pun">,</span><span class="pln"> view</span><span class="pun">:</span><span class="pln"> </span><span
+          class="str">'mini'</span><span class="pun">,</span><span class="pln"> votes_label</span><span
+          class="pun">:</span><span class="kwd">false</span><span class="pun">});</span><span class="pln">
+    </span><span class="pun">})</span><span class="pln">
+ </span><span class="tag">&lt;/script&gt;</span></pre>
+        <h3 id="vote_counter"> Vote Counter</h3>
+        <ul>
+          <li>Show</li>
+        </ul>
+        <pre class="prettyprint prettyprinted" style=""><span class="tag">&lt;script&gt;</span><span class="pln">
+    $</span><span class="pun">(</span><span class="pln">document</span><span class="pun">).</span><span class="pln">ready</span><span
+          class="pun">(</span><span class="kwd">function</span><span class="pln"> </span><span
+          class="pun">(){</span><span class="pln">
+    $</span><span class="pun">(</span><span class="str">'#opineo'</span><span class="pun">).</span><span class="pln">opineo</span><span
+          class="pun">(</span><span class="str">'results.php'</span><span class="pun">,</span><span class="pln"> </span><span
+          class="pun">{</span><span class="pln">curvalue</span><span class="pun">:</span><span class="lit">0</span><span
+          class="pun">,</span><span class="pln"> view</span><span class="pun">:</span><span class="pln"> </span><span
+          class="str">'mini'</span><span class="pun">,</span><span class="pln"> show_votes_counter</span><span
+          class="pun">:</span><span class="kwd">true</span><span class="pun">});</span><span class="pln">
+    </span><span class="pun">})</span><span class="pln">
+</span><span class="tag">&lt;/script&gt;</span><span class="pln"> </span></pre>
+        <ul>
+          <li>Hide</li>
+        </ul>
+        <pre class="prettyprint prettyprinted" style=""><span class="tag">&lt;script&gt;</span><span class="pln">
+    $</span><span class="pun">(</span><span class="pln">document</span><span class="pun">).</span><span class="pln">ready</span><span
+          class="pun">(</span><span class="kwd">function</span><span class="pln"> </span><span
+          class="pun">(){</span><span class="pln">
+    $</span><span class="pun">(</span><span class="str">'#opineo'</span><span class="pun">).</span><span class="pln">opineo</span><span
+          class="pun">(</span><span class="str">'results.php'</span><span class="pun">,</span><span class="pln"> </span><span
+          class="pun">{</span><span class="pln">curvalue</span><span class="pun">:</span><span class="lit">0</span><span
+          class="pun">,</span><span class="pln"> view</span><span class="pun">:</span><span class="pln"> </span><span
+          class="str">'mini'</span><span class="pun">,</span><span class="pln"> votes_label</span><span
+          class="pun">:</span><span class="kwd">false</span><span class="pun">});</span><span class="pln">
+    </span><span class="pun">})</span><span class="pln">
+</span><span class="tag">&lt;/script&gt;</span></pre>
+        <h3 id="rating_icons"> Rating Icons</h3>
+        <ul>
+          <li>Colored</li>
+          <li>Grey</li>
+        </ul>
+        <h3 id="rating_titles"> Rating Titles</h3>
+        <ul>
+          <li>Text For First Star</li>
+        </ul>
+        <pre class="prettyprint prettyprinted" style=""><span class="tag">&lt;script&gt;</span><span class="pln">
+    $</span><span class="pun">(</span><span class="pln">document</span><span class="pun">).</span><span class="pln">ready</span><span
+          class="pun">(</span><span class="kwd">function</span><span class="pln"> </span><span
+          class="pun">(){</span><span class="pln">
+    $</span><span class="pun">(</span><span class="str">'#opineo'</span><span class="pun">).</span><span class="pln">opineo</span><span
+          class="pun">(</span><span class="str">'results.php'</span><span class="pun">,</span><span class="pln"> </span><span
+          class="pun">{</span><span class="pln">curvalue</span><span class="pun">:</span><span class="lit">0</span><span
+          class="pun">,</span><span class="pln"> view</span><span class="pun">:</span><span class="pln"> </span><span
+          class="str">'mini'</span><span class="pun">,</span><span class="pln"> star_1_text</span><span
+          class="pun">:</span><span class="str">'Hate It'</span><span class="pun">});</span><span class="pln">
+    </span><span class="pun">})</span><span class="pln">
+</span><span class="tag">&lt;/script&gt;</span></pre>
+        <ul>
+          <li>Text For Second Star</li>
+        </ul>
+        <pre class="prettyprint prettyprinted" style=""><span class="tag">&lt;script&gt;</span><span class="pln">
+    $</span><span class="pun">(</span><span class="pln">document</span><span class="pun">).</span><span class="pln">ready</span><span
+          class="pun">(</span><span class="kwd">function</span><span class="pln"> </span><span
+          class="pun">(){</span><span class="pln">
+    $</span><span class="pun">(</span><span class="str">'#opineo'</span><span class="pun">).</span><span class="pln">opineo</span><span
+          class="pun">(</span><span class="str">'results.php'</span><span class="pun">,</span><span class="pln"> </span><span
+          class="pun">{</span><span class="pln">curvalue</span><span class="pun">:</span><span class="lit">0</span><span
+          class="pun">,</span><span class="pln"> view</span><span class="pun">:</span><span class="pln"> </span><span
+          class="str">'mini'</span><span class="pun">,</span><span class="pln"> star_2_text</span><span
+          class="pun">:</span><span class="str">'Don'</span><span class="pln">t </span><span
+          class="typ">Like</span><span class="pln"> </span><span class="typ">It</span><span class="str">'});</span><span
+          class="pln">
+    </span><span class="pun">})</span><span class="pln">
+</span><span class="tag">&lt;/script&gt;</span><span class="pln"> </span></pre>
+        <ul>
+          <li>Text For Third Star</li>
+        </ul>
+        <pre class="prettyprint prettyprinted" style=""><span class="tag">&lt;script&gt;</span><span class="pln">
+    $</span><span class="pun">(</span><span class="pln">document</span><span class="pun">).</span><span class="pln">ready</span><span
+          class="pun">(</span><span class="kwd">function</span><span class="pln"> </span><span
+          class="pun">(){</span><span class="pln">
+    $</span><span class="pun">(</span><span class="str">'#opineo'</span><span class="pun">).</span><span class="pln">opineo</span><span
+          class="pun">(</span><span class="str">'results.php'</span><span class="pun">,</span><span class="pln"> </span><span
+          class="pun">{</span><span class="pln">curvalue</span><span class="pun">:</span><span class="lit">0</span><span
+          class="pun">,</span><span class="pln"> view</span><span class="pun">:</span><span class="pln"> </span><span
+          class="str">'mini'</span><span class="pun">,</span><span class="pln"> star_1_text</span><span
+          class="pun">:</span><span class="str">'Its OK'</span><span class="pun">});</span><span class="pln">
+    </span><span class="pun">})</span><span class="pln">
+</span><span class="tag">&lt;/script&gt;</span></pre>
+        <ul>
+          <li>Text For Fourth Star</li>
+        </ul>
+        <pre class="prettyprint prettyprinted" style=""><span class="tag">&lt;script&gt;</span><span class="pln">
+    $</span><span class="pun">(</span><span class="pln">document</span><span class="pun">).</span><span class="pln">ready</span><span
+          class="pun">(</span><span class="kwd">function</span><span class="pln"> </span><span
+          class="pun">(){</span><span class="pln">
+    $</span><span class="pun">(</span><span class="str">'#opineo'</span><span class="pun">).</span><span class="pln">opineo</span><span
+          class="pun">(</span><span class="str">'results.php'</span><span class="pun">,</span><span class="pln"> </span><span
+          class="pun">{</span><span class="pln">curvalue</span><span class="pun">:</span><span class="lit">0</span><span
+          class="pun">,</span><span class="pln"> view</span><span class="pun">:</span><span class="pln"> </span><span
+          class="str">'mini'</span><span class="pun">,</span><span class="pln"> star_1_text</span><span
+          class="pun">:</span><span class="str">'Like It'</span><span class="pun">});</span><span class="pln">
+    </span><span class="pun">})</span><span class="pln">
+</span><span class="tag">&lt;/script&gt;</span></pre>
+        <ul>
+          <li>Text For Fifth Star</li>
+        </ul>
+        <pre class="prettyprint prettyprinted" style=""><span class="tag">&lt;script&gt;</span><span class="pln">
+    $</span><span class="pun">(</span><span class="pln">document</span><span class="pun">).</span><span class="pln">ready</span><span
+          class="pun">(</span><span class="kwd">function</span><span class="pln"> </span><span
+          class="pun">(){</span><span class="pln">
+    $</span><span class="pun">(</span><span class="str">'#opineo'</span><span class="pun">).</span><span class="pln">opineo</span><span
+          class="pun">(</span><span class="str">'results.php'</span><span class="pun">,</span><span class="pln"> </span><span
+          class="pun">{</span><span class="pln">curvalue</span><span class="pun">:</span><span class="lit">0</span><span
+          class="pun">,</span><span class="pln"> view</span><span class="pun">:</span><span class="pln"> </span><span
+          class="str">'mini'</span><span class="pun">,</span><span class="pln"> star_1_text</span><span
+          class="pun">:</span><span class="str">'Love It'</span><span class="pun">});</span><span class="pln">
+    </span><span class="pun">})</span><span class="pln">
+</span><span class="tag">&lt;/script&gt;</span></pre>
+        <h3 id="bar_colors"> Bar Colors</h3>
+        <ul>
+          <li>Colors of Red Bar</li>
+          <li>Colors of Yellow Bar</li>
+          <li>Colors of Green Bar</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
 
   <section class="vibrant centered">
     <div class="">
