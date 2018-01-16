@@ -1,4 +1,4 @@
-import {ModuleWithProviders, NgModule, SkipSelf} from '@angular/core';
+import {ModuleWithProviders, NgModule, Optional, SkipSelf} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {HeaderComponent} from './header/header.component';
 import {ContentComponent} from './content/content.component';
@@ -24,8 +24,8 @@ export class SharedModule {
   }
 
 
-  constructor(@Optional() @SkipSelf() coreModule: SharedModule) {
-    if (coreModule) {
+  constructor(@Optional() @SkipSelf() sharedModule: SharedModule) {
+    if (sharedModule) {
       throw new Error('SharedModule is a singleton that should only be imported by the AppModule');
     }
   }

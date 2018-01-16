@@ -13,10 +13,9 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes),
-    SharedModule.forRoot()
+    RouterModule.forRoot(routes)
   ],
-  exports: [RouterModule, SharedModule]
+  exports: [RouterModule]
 })
 export class DemoRoutingModule {
   constructor(@Optional() @SkipSelf() appRoutingModule: DemoRoutingModule) {

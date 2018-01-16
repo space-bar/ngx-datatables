@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'ngx-content',
+  selector: 'demo-content',
   templateUrl: './content.component.html',
   styleUrls: ['./content.component.css']
 })
