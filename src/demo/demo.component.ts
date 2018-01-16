@@ -1,13 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 
 @Component({
-  selector: 'ngx-datatables-demo',
+  selector: 'demo-app',
   templateUrl: './demo.component.html',
   styleUrls: ['./demo.component.css']
 })
 export class DemoComponent implements OnInit {
-
-  title = 'app';
   data: Object[];
   ajax: DataTables.FunctionAjax;
   options: DataTables.Settings;
@@ -52,7 +50,7 @@ export class DemoComponent implements OnInit {
 
     this.options = {
       ajax: this.ajax,
-      processing:true,
+      processing: true,
       'columns': [
         {'data': 'field'},
         {'data': 'header'},
